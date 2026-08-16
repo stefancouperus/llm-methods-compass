@@ -30,7 +30,7 @@ Open the local address printed by the development server. The dashboard starts w
 
 The running dashboard does not call an AI API or run an AI model. Its advice is produced by transparent rules in `app/page.tsx`, a deliberately maintained benchmark registry in `app/model-registry.ts`, and a static discovery snapshot in `app/model-discovery.json`. No API key, model server, database, upload service or network connection is required while a researcher uses the questionnaire and recommendations. External evidence and model links are references, not runtime dependencies.
 
-Automated evidence discovery introduces two limited **build-time data dependencies**: a scheduled GitHub Actions job queries public Hugging Face Hub metadata for model leads and public Crossref metadata for recent scholarly work, writes separately dated snapshots, and rebuilds the static site. It performs no inference and needs no API token. The dashboard always displays both snapshot dates. Automatically found repositories remain a metadata-only model watchlist; newly found publications remain a bibliographic screening queue. Neither becomes a validated recommendation or a methodological rule without human review.
+Automated evidence discovery introduces two limited **build-time data dependencies**: a scheduled GitHub Actions job queries public Hugging Face Hub metadata for model leads and public Crossref metadata for recent scholarly work, writes separately dated snapshots, and rebuilds the static site. It performs no inference and needs no API token. The dashboard always displays both snapshot dates. Automatically found repositories appear in a separate **Provisional model candidates** category; newly found publications remain a bibliographic screening queue. Neither becomes a curated recommendation or a methodological rule without human review.
 
 The application still requires its ordinary open-source web packages to be installed and built. Once deployed, GitHub Pages serves static files and does not require a server-side application.
 
@@ -71,7 +71,7 @@ Each successful model refresh:
 
 The same run searches Crossref for recent work on qualitative research, text annotation and measurement, validation and downstream inference, prompting and reproducibility, historical or multilingual text, and open/local model use. It updates `app/literature-discovery.json` with metadata leads marked `screening_required`. The automated list is deliberately not integrated into advice: a researcher must read and appraise publication status, methods, scope, limitations and relevance before changing the QMD, rule set or curated reference library.
 
-Every appraisal is preserved separately in `app/literature-review-decisions.json`. Each discovered item receives an explicit decision—integrated, already covered, superseded, background only or outside scope—plus a reason and the QMD modules considered. The current first pass is transparently labelled AI-assisted and requires researcher confirmation before publication. The dashboard compares the appraised snapshot identifier with the latest discovery snapshot. After the next automatic discovery refresh it will therefore show **review required** until a new set of decisions is recorded; neither an automated search nor an AI-assisted first pass can present itself as a completed scholarly literature review.
+Every appraisal is preserved separately in `app/literature-review-decisions.json`. Each discovered item receives an explicit decision—integrated, already covered, superseded, background only or outside scope—plus a reason and the QMD modules considered. The first 18-item appraisal was researcher-confirmed on 16 August 2026. The dashboard compares the appraised snapshot identifier with the latest discovery snapshot. After the next automatic discovery refresh it will therefore show **review required** until a new set of decisions is recorded; neither an automated search nor an AI-assisted first pass can present itself as a completed scholarly literature review.
 
 The update is therefore deliberately **semi-automated**. GitHub automates metadata discovery, validation, dating and preservation. A researcher still decides whether a discovered model is adequately documented and worth benchmarking, and whether a publication changes the QMD, curated reference library or advisory rules. Discovery never promotes an item automatically.
 
@@ -90,7 +90,7 @@ npm run preview:pages
 
 - `app/page.tsx` — intake, decision logic, recommendation and local export
 - `app/model-registry.ts` — dated documentary candidates, kept separate from the interface
-- `app/model-discovery.json` — automatically refreshed, metadata-only discovery watchlist
+- `app/model-discovery.json` — automatically refreshed metadata leads shown as provisional model candidates
 - `app/literature-discovery.json` — automatically refreshed bibliographic screening queue
 - `app/literature-review-decisions.json` — human appraisal log tied to one exact discovery snapshot
 - `app/research-references.ts` — curated, reviewed dashboard reference library and QMD coverage map

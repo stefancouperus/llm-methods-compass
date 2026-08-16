@@ -8,7 +8,7 @@ import modelDiscovery from "./model-discovery.json";
  * project-specific benchmark on the exact model revision and runtime.
  */
 export const MODEL_REGISTRY = {
-  schemaVersion: "0.3",
+  schemaVersion: "0.4",
   snapshotDate: "2026-08-16",
   candidates: {
     lexical: "Filters and word-based search (for example Boolean search or BM25)",
@@ -134,10 +134,11 @@ export const ARCHITECTURE_REGISTER = [
     families: ["An instruction model given only selected source passages", "Instructions asking for a different supported reading", "A routine check for counterevidence and unresolved ambiguity"],
     escalation: "The researcher remains responsible for source criticism, interpretation, explanation and the final scholarly claim.",
     documentedExamples: ["No named model is treated as an interpretive default", "A current open-weight instruction challenger may enter only as an evidence-linked comparison"],
-    selectionBasis: "Interpretive assistance is included as a limited collaboration between researcher and model, not as a shortcut that replaces reading. Research on interpretation stresses context, several defensible readings and ambiguity. Qualitative user research found that people trusted local models more for surface-level extraction than for interpretive nuance.",
+    selectionBasis: "Interpretive assistance is included as a limited collaboration between researcher and model, not as a shortcut that replaces reading. Research on interpretation stresses context, several defensible readings and ambiguity. A recent devil's-advocate study supports one narrowly experimental route: write the researcher interpretation first, ask for counterarguments, and manually verify every objection against the source. The model's response remains an artifact, not testimony or validation.",
     references: [
       { kind: "Academic", label: "Kommers et al. — computational hermeneutics", url: "https://doi.org/10.3389/frai.2026.1753041" },
       { kind: "Academic", label: "Fodor et al. — hermeneutically complex annotation", url: "https://doi.org/10.1016/j.amper.2026.100270" },
+      { kind: "Academic", label: "Gillespie — LLMs as devil's advocates", url: "https://doi.org/10.1037/qup0000374" },
       { kind: "Preprint", label: "Ngo et al. — conditional trust in local QDA", url: "https://arxiv.org/abs/2602.18352" },
     ],
   },
@@ -158,3 +159,23 @@ export const ARCHITECTURE_REGISTER = [
 ] as const;
 
 export const MODEL_DISCOVERY = modelDiscovery;
+
+/**
+ * Separates automated discovery leads from the curated task routes above.
+ * No entry crosses into a project recommendation without documentary review
+ * and an empirical benchmark on the intended material.
+ */
+export const PROVISIONAL_MODEL_CATEGORY = {
+  label: "Provisional model candidates",
+  evidenceStatus: "Not yet sufficiently corroborated",
+  reviewedAt: "2026-08-16",
+  decision: "Retain the current discovery snapshot in a separate provisional category; do not promote any entry into the curated register yet.",
+  explanation: "These repositories were found by the monthly catalogue search. They may be technically plausible, but this review did not establish sufficient task-relevant published research or project testing to present them as curated recommendations.",
+  promotionChecks: [
+    "licence, lineage and exact revision",
+    "fit with the research task, language and source type",
+    "independent documentation or relevant published research",
+    "project-specific performance and failure analysis",
+    "hardware feasibility and measured resource use",
+  ],
+} as const;

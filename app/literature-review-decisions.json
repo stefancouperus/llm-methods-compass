@@ -3,9 +3,9 @@
   "reviewedAt": "2026-08-16",
   "reviewedDiscoveryGeneratedAt": "2026-08-16T08:22:55.122Z",
   "reviewerRole": "AI-assisted methodological appraisal",
-  "confirmationStatus": "researcher_confirmation_required",
-  "confirmedBy": null,
-  "confirmedAt": null,
+  "confirmationStatus": "researcher_confirmed",
+  "confirmedBy": "Project owner",
+  "confirmedAt": "2026-08-16",
   "statusDefinitions": {
     "integrated": "Read and judged to add a distinct methodological consideration; incorporated into the QMD and curated dashboard library.",
     "already_covered": "Relevant, but its contribution was already represented in the current method and reference library.",
@@ -23,7 +23,7 @@
     {
       "id": "10.18653/v1/2026.latechclfl-1.27",
       "status": "integrated",
-      "reason": "Provides direct SSH evidence that adding theory to prompts can help or hurt depending on task and model, supporting controlled prompt comparisons rather than assuming that richer prompts are better.",
+      "reason": "Provides bounded SSH evidence that theory-enriched prompting can help or hurt depending on task and model. It supports comparing a theory-enriched prompt with a concise operationalised prompt; it is not evidence against theory-grounded coding or codebooks.",
       "affectedModules": ["5", "6", "8"]
     },
     {
@@ -41,7 +41,7 @@
     {
       "id": "10.1007/s41111-026-00351-4",
       "status": "integrated",
-      "reason": "Adds a measurement-theoretic account of LLMs as candidate instruments and clarifies how prompts, rubrics, stochasticity and model drift affect the whole measurement chain.",
+      "reason": "Adds a measurement-theoretic account of LLMs as candidate instruments for labels, scores, extractions and retrieval gates, and clarifies how prompts, rubrics, stochasticity and model drift affect that measurement chain. Open-ended interpretive assistance remains a separate epistemic use.",
       "affectedModules": ["1", "2", "8", "8A", "14"]
     },
     {
@@ -53,13 +53,13 @@
     {
       "id": "10.1177/00491241251339188",
       "status": "integrated",
-      "reason": "Offers a peer-reviewed qualitative-coding workflow and empirical prompt comparisons, strengthening the treatment of iterative coding-guide development, persona prompts, prompt length and sequencing.",
+      "reason": "Offers a peer-reviewed researcher–LLM–researcher qualitative-coding workflow and empirical prompt/model comparisons. It supports iterative coding-guide development, structured instructions, human validation and open-weight benchmarking, but does not isolate or experimentally validate persona prompting.",
       "affectedModules": ["5", "6", "8", "9"]
     },
     {
       "id": "10.1037/qup0000374",
-      "status": "background",
-      "reason": "Promising for the experimental devil's-advocate route, but it does not yet justify changing core validation requirements; retain for a focused full-text review of interpretive assistance.",
+      "status": "integrated",
+      "reason": "Adds a narrowly bounded experimental devil's-advocate protocol for post-interpretation adversarial critique: the researcher writes first, model counterarguments remain artifacts, and every objection is checked manually against source evidence. It is not testimony, member checking or independent validation.",
       "affectedModules": ["6", "8A", "9"]
     },
     {
@@ -100,9 +100,9 @@
     },
     {
       "id": "10.1177/23328584251389621",
-      "status": "background",
-      "reason": "A peer-reviewed educational case study with useful methodological detail, but its main implications are already represented by broader annotation and validation sources.",
-      "affectedModules": ["6", "8"]
+      "status": "out_of_scope",
+      "reason": "Concerns LLM-generated statistical code for quantitative educational analysis rather than researcher-facing qualitative textual analysis. This classification reflects the advisor's scope, not the study's scholarly quality.",
+      "affectedModules": []
     },
     {
       "id": "10.31235/osf.io/ew5zq_v1",
