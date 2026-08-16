@@ -1,0 +1,126 @@
+{
+  "schemaVersion": "0.1",
+  "reviewedAt": "2026-08-16",
+  "reviewedDiscoveryGeneratedAt": "2026-08-16T08:22:55.122Z",
+  "reviewerRole": "AI-assisted methodological appraisal",
+  "confirmationStatus": "researcher_confirmation_required",
+  "confirmedBy": null,
+  "confirmedAt": null,
+  "statusDefinitions": {
+    "integrated": "Read and judged to add a distinct methodological consideration; incorporated into the QMD and curated dashboard library.",
+    "already_covered": "Relevant, but its contribution was already represented in the current method and reference library.",
+    "superseded": "Replaced by a newer version of the same work.",
+    "background": "Potentially useful context, but currently too specialised, duplicative, preliminary or insufficiently distinctive to change an advisory rule.",
+    "out_of_scope": "Does not address researcher-facing qualitative textual analysis or the selection and validation problem covered by this advisor."
+  },
+  "decisions": [
+    {
+      "id": "10.31235/osf.io/v4eq6_v2",
+      "status": "already_covered",
+      "reason": "The current curated guide already cites the equivalent 2026 arXiv version and uses its reproducibility and reporting recommendations.",
+      "affectedModules": ["6", "8A", "14"]
+    },
+    {
+      "id": "10.18653/v1/2026.latechclfl-1.27",
+      "status": "integrated",
+      "reason": "Provides direct SSH evidence that adding theory to prompts can help or hurt depending on task and model, supporting controlled prompt comparisons rather than assuming that richer prompts are better.",
+      "affectedModules": ["5", "6", "8"]
+    },
+    {
+      "id": "10.2139/ssrn.6752740",
+      "status": "background",
+      "reason": "Relevant to reproducible prompting, but currently a domain-specific working paper whose general contribution is covered by stronger cross-domain sources.",
+      "affectedModules": ["6", "14"]
+    },
+    {
+      "id": "10.31235/osf.io/v4eq6_v1",
+      "status": "superseded",
+      "reason": "Earlier version of the Fang, Garcia-Bernardo and van Kesteren guide; the newer version is retained.",
+      "affectedModules": ["6", "8A", "14"]
+    },
+    {
+      "id": "10.1007/s41111-026-00351-4",
+      "status": "integrated",
+      "reason": "Adds a measurement-theoretic account of LLMs as candidate instruments and clarifies how prompts, rubrics, stochasticity and model drift affect the whole measurement chain.",
+      "affectedModules": ["1", "2", "8", "8A", "14"]
+    },
+    {
+      "id": "10.1177/08944393251366243",
+      "status": "already_covered",
+      "reason": "Already cited in the QMD as a central risk review for conditional, task-specific validation.",
+      "affectedModules": ["1", "8"]
+    },
+    {
+      "id": "10.1177/00491241251339188",
+      "status": "integrated",
+      "reason": "Offers a peer-reviewed qualitative-coding workflow and empirical prompt comparisons, strengthening the treatment of iterative coding-guide development, persona prompts, prompt length and sequencing.",
+      "affectedModules": ["5", "6", "8", "9"]
+    },
+    {
+      "id": "10.1037/qup0000374",
+      "status": "background",
+      "reason": "Promising for the experimental devil's-advocate route, but it does not yet justify changing core validation requirements; retain for a focused full-text review of interpretive assistance.",
+      "affectedModules": ["6", "8A", "9"]
+    },
+    {
+      "id": "10.31234/osf.io/25ywa_v1",
+      "status": "background",
+      "reason": "A relevant position paper, but it does not currently add a distinct operational rule beyond the included empirical and scoping literature.",
+      "affectedModules": ["1", "9"]
+    },
+    {
+      "id": "10.1016/j.amper.2026.100270",
+      "status": "already_covered",
+      "reason": "Already integrated as direct evidence on hermeneutically complex annotation and model-task variability.",
+      "affectedModules": ["5", "8", "8A"]
+    },
+    {
+      "id": "10.1287/isre.2024.1143",
+      "status": "already_covered",
+      "reason": "Already integrated as a comparative evaluation of lexicons, supervised models, masked-language models and LLM prompting.",
+      "affectedModules": ["6", "7", "8"]
+    },
+    {
+      "id": "10.31235/osf.io/gj89u_v1",
+      "status": "background",
+      "reason": "Relevant critical discussion, but the present rules are already supported by peer-reviewed empirical work and a methodological scoping review.",
+      "affectedModules": ["1", "8A", "9"]
+    },
+    {
+      "id": "10.31235/osf.io/3ewzv_v1",
+      "status": "background",
+      "reason": "A useful domain workflow for social-media narrative measurement, but not sufficiently general to alter the advisor's cross-domain rules.",
+      "affectedModules": ["5", "8"]
+    },
+    {
+      "id": "10.31235/osf.io/3s5eq_v1",
+      "status": "background",
+      "reason": "Its assistance-not-automation position is compatible with the advisor, but currently overlaps the stronger empirical and reporting literature already included.",
+      "affectedModules": ["1", "8A", "9"]
+    },
+    {
+      "id": "10.1177/23328584251389621",
+      "status": "background",
+      "reason": "A peer-reviewed educational case study with useful methodological detail, but its main implications are already represented by broader annotation and validation sources.",
+      "affectedModules": ["6", "8"]
+    },
+    {
+      "id": "10.31235/osf.io/ew5zq_v1",
+      "status": "background",
+      "reason": "Conceptually relevant to scaled qualitative research, but currently a preprint/chapter contribution that does not add a sufficiently specific decision rule.",
+      "affectedModules": ["1", "9"]
+    },
+    {
+      "id": "10.31219/osf.io/rcmun_v1",
+      "status": "background",
+      "reason": "Relevant to first-pass annotation filters, but specialised and preliminary relative to the included general annotation evidence.",
+      "affectedModules": ["4", "5", "8"]
+    },
+    {
+      "id": "10.1016/j.knosys.2025.113566",
+      "status": "out_of_scope",
+      "reason": "Uses historical edits as preference-training data; it is model-alignment research rather than a method for qualitative analysis of historical textual sources.",
+      "affectedModules": []
+    }
+  ]
+}

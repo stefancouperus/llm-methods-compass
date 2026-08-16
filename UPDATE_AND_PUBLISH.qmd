@@ -1,0 +1,73 @@
+---
+title: "Updating and publishing the LLM Methods Compass"
+subtitle: "A short working guide"
+date: last-modified
+format:
+  html:
+    toc: true
+    toc-depth: 2
+    embed-resources: true
+    theme: cosmo
+---
+
+## The important privacy distinction
+
+The project can be stored in a **private GitHub repository**. That does not automatically make its GitHub Pages website private: Pages sites are normally public even when their source repository is private. A genuinely access-restricted Pages site requires a private repository owned by a **GitHub Enterprise Cloud organisation** and Pages access control.
+
+For this personal GitHub account, the safe starting point is therefore: keep the repository private and do not enable Pages until either (a) a public website is acceptable, or (b) the repository has been moved to an eligible Enterprise Cloud organisation.
+
+Official guidance: [publishing sources and the private-repository warning](https://docs.github.com/en/pages/getting-started-with-github-pages/configuring-a-publishing-source-for-your-github-pages-site) and [private Pages access control](https://docs.github.com/en/enterprise-cloud@latest/pages/getting-started-with-github-pages/changing-the-visibility-of-your-github-pages-site).
+
+## Update the dashboard
+
+Open Terminal and run:
+
+```{.bash filename="Terminal"}
+cd /Users/stefancouperus/Desktop/llm_selection/dashboard
+git pull --ff-only
+git status
+```
+
+Edit the dashboard files. Before saving the change to GitHub, check that it still works:
+
+```{.bash filename="Terminal"}
+npm ci
+npm run lint
+npm test
+```
+
+Then commit only the files you intended to change:
+
+```{.bash filename="Terminal"}
+git status
+git add path/to/changed-file another/changed-file
+git commit -m "Brief description of the change"
+git push origin main
+```
+
+Replace the example paths and commit message. `git add` selects changes; `git commit` records a named version locally; `git push` sends that version to GitHub. Always run `git status` before committing. Do not commit corpora, credentials, `.env` files, `node_modules/`, or locally generated build folders.
+
+The monthly evidence workflow may add a GitHub-generated commit. Running `git pull --ff-only` before starting prevents most version conflicts. If Git reports a conflict, stop and inspect it rather than overwriting either version.
+
+## Publish or refresh the website
+
+Pushing to `main` automatically starts the included **Deploy dashboard to GitHub Pages** workflow once Pages has been enabled.
+
+For a public Pages site:
+
+1. In the repository, open **Settings → Pages** and choose **GitHub Actions** as the source.
+2. Open **Settings → Actions → General → Workflow permissions** and choose read/write permission, which the monthly evidence refresh needs.
+3. Open **Actions → Deploy dashboard to GitHub Pages → Run workflow** for the first deployment. Later pushes redeploy automatically.
+4. Check the workflow’s green tick and then open the displayed website address.
+
+For a genuinely private Pages site, first place the private repository in an eligible GitHub Enterprise Cloud organisation. Then open **Settings → Pages** and set the site visibility to **Private** before running the deployment workflow.
+
+## Undo or inspect a change
+
+```{.bash filename="Terminal"}
+git log --oneline -10
+git show COMMIT_ID
+```
+
+These commands inspect earlier versions without changing files. If a published change must be reversed, use `git revert COMMIT_ID`; this creates a new, auditable reversal instead of erasing history.
+

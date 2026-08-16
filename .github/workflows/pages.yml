@@ -1,0 +1,115 @@
+name: Deploy dashboard to GitHub Pages
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+  schedule:
+    # A lightweight daily age check makes delayed GitHub schedules harmless.
+    # API access and deployment occur only when a committed snapshot is at
+    # least 30 days old.
+    - cron: "23 4 * * *"
+      timezone: "Europe/Amsterdam"
+
+permissions:
+  contents: write
+  pages: write
+  id-token: write
+
+concurrency:
+  group: github-pages
+  cancel-in-progress: false
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    outputs:
+      should_deploy: ${{ steps.decision.outputs.should_deploy }}
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v6
+
+      - name: Refresh model and literature watchlists when thirty days have elapsed
+        id: scheduled_refresh
+        if: github.event_name == 'schedule'
+        run: |
+          node scripts/refresh-model-discovery.mjs --if-stale-days=30
+          node scripts/refresh-literature-discovery.mjs --if-stale-days=30
+          if git diff --quiet -- app/model-discovery.json app/literature-discovery.json; then
+            echo "changed=false" >> "$GITHUB_OUTPUT"
+          else
+            echo "changed=true" >> "$GITHUB_OUTPUT"
+          fi
+
+      - name: Refresh both watchlists on manual request
+        id: manual_refresh
+        if: github.event_name == 'workflow_dispatch'
+        run: |
+          node scripts/refresh-model-discovery.mjs
+          node scripts/refresh-literature-discovery.mjs
+          echo "changed=true" >> "$GITHUB_OUTPUT"
+
+      - name: Decide whether this run should deploy
+        id: decision
+        run: |
+          if [ "${{ github.event_name }}" != "schedule" ] || [ "${{ steps.scheduled_refresh.outputs.changed }}" = "true" ]; then
+            echo "should_deploy=true" >> "$GITHUB_OUTPUT"
+          else
+            echo "should_deploy=false" >> "$GITHUB_OUTPUT"
+          fi
+
+      - name: Preserve refreshed snapshots
+        if: steps.scheduled_refresh.outputs.changed == 'true' || steps.manual_refresh.outputs.changed == 'true'
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add app/model-discovery.json app/literature-discovery.json
+          git commit -m "chore: refresh monthly evidence watchlists"
+          git push
+
+      - name: Set up Node.js
+        if: steps.decision.outputs.should_deploy == 'true'
+        uses: actions/setup-node@v6
+        with:
+          node-version: 22
+          cache: npm
+
+      - name: Install locked dependencies
+        if: steps.decision.outputs.should_deploy == 'true'
+        run: npm ci
+
+      - name: Configure GitHub Pages
+        id: pages
+        if: steps.decision.outputs.should_deploy == 'true'
+        uses: actions/configure-pages@v5
+
+      - name: Build static dashboard
+        if: steps.decision.outputs.should_deploy == 'true'
+        env:
+          NEXT_PUBLIC_SITE_URL: ${{ steps.pages.outputs.base_url }}
+        run: npm run build:pages
+
+      - name: Validate static dashboard and discovery snapshots
+        if: steps.decision.outputs.should_deploy == 'true'
+        run: |
+          npm run test:pages
+          npm run refresh:models -- --validate
+          npm run refresh:literature -- --validate
+
+      - name: Upload GitHub Pages artifact
+        if: steps.decision.outputs.should_deploy == 'true'
+        uses: actions/upload-pages-artifact@v4
+        with:
+          path: pages-dist
+
+  deploy:
+    if: needs.build.outputs.should_deploy == 'true'
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    runs-on: ubuntu-latest
+    needs: build
+    steps:
+      - name: Deploy GitHub Pages artifact
+        id: deployment
+        uses: actions/deploy-pages@v4

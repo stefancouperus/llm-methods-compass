@@ -1,0 +1,403 @@
+{
+  "schemaVersion": "0.1",
+  "generatedAt": "2026-08-16T08:22:55.122Z",
+  "source": "Crossref public Works API",
+  "sourceUrl": "https://api.crossref.org/works",
+  "status": "automated_bibliographic_screening_queue_only",
+  "cadenceDays": 30,
+  "queryVersion": "0.1",
+  "methodNote": "Automated metadata leads for human screening. Presence does not establish relevance, quality, peer-review status, applicability, or authority to change the QMD or dashboard.",
+  "queries": [
+    {
+      "id": "qualitative-methods",
+      "label": "Qualitative research and interpretation",
+      "text": "large language models qualitative research interpretation coding",
+      "returned": 50,
+      "retained": 8
+    },
+    {
+      "id": "annotation-measurement",
+      "label": "Text annotation and measurement",
+      "text": "large language models text annotation measurement social science",
+      "returned": 50,
+      "retained": 8
+    },
+    {
+      "id": "validation-inference",
+      "label": "Validation and downstream inference",
+      "text": "large language models validation downstream inference classification error",
+      "returned": 50,
+      "retained": 0
+    },
+    {
+      "id": "prompting-reproducibility",
+      "label": "Prompting and reproducibility",
+      "text": "large language models prompting reproducibility social science humanities",
+      "returned": 50,
+      "retained": 3
+    },
+    {
+      "id": "historical-multilingual",
+      "label": "Historical and multilingual text",
+      "text": "large language models historical text multilingual humanities",
+      "returned": 50,
+      "retained": 4
+    },
+    {
+      "id": "open-local",
+      "label": "Open-weight and local research use",
+      "text": "open weight large language models local research text analysis",
+      "returned": 50,
+      "retained": 5
+    }
+  ],
+  "candidates": [
+    {
+      "id": "10.31235/osf.io/v4eq6_v2",
+      "title": "A Methodological Guide on Using Large Language Models for Text Annotation in the Social Sciences and Humanities with Python and R",
+      "authors": [
+        "Qixiang Fang",
+        "Javier Garcia-Bernardo",
+        "Erik-Jan van Kesteren"
+      ],
+      "published": "2026-03-23",
+      "year": 2026,
+      "venue": "Center for Open Science",
+      "type": "posted-content",
+      "doi": "10.31235/osf.io/v4eq6_v2",
+      "url": "https://doi.org/10.31235/osf.io/v4eq6_v2",
+      "score": 22,
+      "queryIds": [
+        "annotation-measurement",
+        "historical-multilingual"
+      ],
+      "reviewStatus": "screening_required"
+    },
+    {
+      "id": "10.18653/v1/2026.latechclfl-1.27",
+      "title": "Evaluating Humanities Theory Alignment in Large Language Models: Incremental Prompting and Statistical Assessment",
+      "authors": [
+        "Axel Pichler",
+        "Janis Pagel"
+      ],
+      "published": "2026-01-01",
+      "year": 2026,
+      "venue": "Proceedings of the 10th Joint SIGHUM Workshop on Computational Linguistics for Cultural Heritage, Social Sciences, Humanities and Literature 2026",
+      "type": "proceedings-article",
+      "doi": "10.18653/v1/2026.latechclfl-1.27",
+      "url": "https://doi.org/10.18653/v1/2026.latechclfl-1.27",
+      "score": 22,
+      "queryIds": [
+        "prompting-reproducibility"
+      ],
+      "reviewStatus": "screening_required"
+    },
+    {
+      "id": "10.2139/ssrn.6752740",
+      "title": "A Reproducible Prompting Method for Coding Classroom Behaviors from Observation Transcripts Using Large Language Models",
+      "authors": [
+        "Vanessa Peters",
+        "Xin Wei"
+      ],
+      "published": "2026-01-01",
+      "year": 2026,
+      "venue": "Elsevier BV",
+      "type": "posted-content",
+      "doi": "10.2139/ssrn.6752740",
+      "url": "https://doi.org/10.2139/ssrn.6752740",
+      "score": 22,
+      "queryIds": [
+        "prompting-reproducibility"
+      ],
+      "reviewStatus": "screening_required"
+    },
+    {
+      "id": "10.31235/osf.io/v4eq6_v1",
+      "title": "Using Large Language Models for Text Annotation in Social Science and Humanities: A Hands-On Python/R Tutorial",
+      "authors": [
+        "Qixiang Fang",
+        "Javier Garcia-Bernardo",
+        "Erik-Jan van Kesteren"
+      ],
+      "published": "2025-11-13",
+      "year": 2025,
+      "venue": "Center for Open Science",
+      "type": "posted-content",
+      "doi": "10.31235/osf.io/v4eq6_v1",
+      "url": "https://doi.org/10.31235/osf.io/v4eq6_v1",
+      "score": 21,
+      "queryIds": [
+        "annotation-measurement",
+        "prompting-reproducibility",
+        "historical-multilingual"
+      ],
+      "reviewStatus": "screening_required"
+    },
+    {
+      "id": "10.1007/s41111-026-00351-4",
+      "title": "Beyond the Conventional Pipeline: Large Language Models for Social Science Measurement",
+      "authors": [
+        "Le Bao"
+      ],
+      "published": "2026-07-30",
+      "year": 2026,
+      "venue": "Chinese Political Science Review",
+      "type": "journal-article",
+      "doi": "10.1007/s41111-026-00351-4",
+      "url": "https://doi.org/10.1007/s41111-026-00351-4",
+      "score": 20,
+      "queryIds": [
+        "annotation-measurement"
+      ],
+      "reviewStatus": "screening_required"
+    },
+    {
+      "id": "10.1177/08944393251366243",
+      "title": "Navigating the Risks of Using Large Language Models for Text Annotation in Social Science Research",
+      "authors": [
+        "Hao Lin",
+        "Yongjun Zhang"
+      ],
+      "published": "2025-08-08",
+      "year": 2025,
+      "venue": "Social Science Computer Review",
+      "type": "journal-article",
+      "doi": "10.1177/08944393251366243",
+      "url": "https://doi.org/10.1177/08944393251366243",
+      "score": 19,
+      "queryIds": [
+        "annotation-measurement"
+      ],
+      "reviewStatus": "screening_required"
+    },
+    {
+      "id": "10.1177/00491241251339188",
+      "title": "Updating “The Future of Coding”: Qualitative Coding with Generative Large Language Models",
+      "authors": [
+        "Nga Than",
+        "Leanne Fan",
+        "Tina Law",
+        "Laura K. Nelson",
+        "Leslie McCall"
+      ],
+      "published": "2025-05-21",
+      "year": 2025,
+      "venue": "Sociological Methods & Research",
+      "type": "journal-article",
+      "doi": "10.1177/00491241251339188",
+      "url": "https://doi.org/10.1177/00491241251339188",
+      "score": 19,
+      "queryIds": [
+        "qualitative-methods"
+      ],
+      "reviewStatus": "screening_required"
+    },
+    {
+      "id": "10.1037/qup0000374",
+      "title": "Provoking interpretation: Using large language models as devil’s advocates.",
+      "authors": [
+        "Alex Gillespie"
+      ],
+      "published": "2026-07-20",
+      "year": 2026,
+      "venue": "Qualitative Psychology",
+      "type": "journal-article",
+      "doi": "10.1037/qup0000374",
+      "url": "https://doi.org/10.1037/qup0000374",
+      "score": 18,
+      "queryIds": [
+        "qualitative-methods"
+      ],
+      "reviewStatus": "screening_required"
+    },
+    {
+      "id": "10.31234/osf.io/25ywa_v1",
+      "title": "Against the Rejection of Large Language Models in Qualitative Research",
+      "authors": [
+        "Evgeny Smirnov"
+      ],
+      "published": "2026-07-05",
+      "year": 2026,
+      "venue": "Center for Open Science",
+      "type": "posted-content",
+      "doi": "10.31234/osf.io/25ywa_v1",
+      "url": "https://doi.org/10.31234/osf.io/25ywa_v1",
+      "score": 18,
+      "queryIds": [
+        "qualitative-methods"
+      ],
+      "reviewStatus": "screening_required"
+    },
+    {
+      "id": "10.1016/j.amper.2026.100270",
+      "title": "Evaluating large language models on a hermeneutically complex text annotation task",
+      "authors": [
+        "Alexandra Fodor",
+        "Eszter Katona",
+        "Renáta Németh"
+      ],
+      "published": "2026-06-01",
+      "year": 2026,
+      "venue": "Ampersand",
+      "type": "journal-article",
+      "doi": "10.1016/j.amper.2026.100270",
+      "url": "https://doi.org/10.1016/j.amper.2026.100270",
+      "score": 18,
+      "queryIds": [
+        "annotation-measurement"
+      ],
+      "reviewStatus": "screening_required"
+    },
+    {
+      "id": "10.1287/isre.2024.1143",
+      "title": "From Lexicons to Large Language Models: A Holistic Evaluation of Psychometric Text Analysis in Social Science Research",
+      "authors": [
+        "Reza Mousavi",
+        "Brent Kitchens",
+        "Abbie Griffith Oliver",
+        "Ahmed Abbasi"
+      ],
+      "published": "2026-04-22",
+      "year": 2026,
+      "venue": "Information Systems Research",
+      "type": "journal-article",
+      "doi": "10.1287/isre.2024.1143",
+      "url": "https://doi.org/10.1287/isre.2024.1143",
+      "score": 18,
+      "queryIds": [
+        "open-local"
+      ],
+      "reviewStatus": "screening_required"
+    },
+    {
+      "id": "10.31235/osf.io/gj89u_v1",
+      "title": "Uses and Misuses of Large Language Models in Qualitative Research",
+      "authors": [
+        "Jonathan Ben-Menachem"
+      ],
+      "published": "2026-03-17",
+      "year": 2026,
+      "venue": "Center for Open Science",
+      "type": "posted-content",
+      "doi": "10.31235/osf.io/gj89u_v1",
+      "url": "https://doi.org/10.31235/osf.io/gj89u_v1",
+      "score": 18,
+      "queryIds": [
+        "qualitative-methods"
+      ],
+      "reviewStatus": "screening_required"
+    },
+    {
+      "id": "10.31235/osf.io/3ewzv_v1",
+      "title": "Quantifying Social Media Narratives Using Large Language Models: A Scalable Workflow for Social Measurement",
+      "authors": [
+        "Yan Zhang",
+        "Mingfei Zhang"
+      ],
+      "published": "2026-03-01",
+      "year": 2026,
+      "venue": "Center for Open Science",
+      "type": "posted-content",
+      "doi": "10.31235/osf.io/3ewzv_v1",
+      "url": "https://doi.org/10.31235/osf.io/3ewzv_v1",
+      "score": 18,
+      "queryIds": [
+        "annotation-measurement"
+      ],
+      "reviewStatus": "screening_required"
+    },
+    {
+      "id": "10.31235/osf.io/3s5eq_v1",
+      "title": "Assisting, Not Automating: Large Language Models in Qualitative and Mixed-Methods Research",
+      "authors": [
+        "Moses Boudourides"
+      ],
+      "published": "2026-02-04",
+      "year": 2026,
+      "venue": "Center for Open Science",
+      "type": "posted-content",
+      "doi": "10.31235/osf.io/3s5eq_v1",
+      "url": "https://doi.org/10.31235/osf.io/3s5eq_v1",
+      "score": 18,
+      "queryIds": [
+        "qualitative-methods"
+      ],
+      "reviewStatus": "screening_required"
+    },
+    {
+      "id": "10.1177/23328584251389621",
+      "title": "Enhancing Quantitative Analysis in Social Sciences With Large Language Models (LLMs): A Methodological Case Study in Educational Research",
+      "authors": [
+        "James Sebastian",
+        "Jeong-Mi Moon",
+        "Eric Camburn"
+      ],
+      "published": "2025-12-01",
+      "year": 2025,
+      "venue": "AERA Open",
+      "type": "journal-article",
+      "doi": "10.1177/23328584251389621",
+      "url": "https://doi.org/10.1177/23328584251389621",
+      "score": 17,
+      "queryIds": [
+        "open-local"
+      ],
+      "reviewStatus": "screening_required"
+    },
+    {
+      "id": "10.31235/osf.io/ew5zq_v1",
+      "title": "Towards a Third Generation of Natural Language Processing: Enhancing Qualitative Research with Large Language Models",
+      "authors": [
+        "Anton Törnberg"
+      ],
+      "published": "2025-09-03",
+      "year": 2025,
+      "venue": "Center for Open Science",
+      "type": "posted-content",
+      "doi": "10.31235/osf.io/ew5zq_v1",
+      "url": "https://doi.org/10.31235/osf.io/ew5zq_v1",
+      "score": 17,
+      "queryIds": [
+        "qualitative-methods"
+      ],
+      "reviewStatus": "screening_required"
+    },
+    {
+      "id": "10.31219/osf.io/rcmun_v1",
+      "title": "Corpus linguistics with AI copilots: Large language models as first-pass filters in data annotation",
+      "authors": [
+        "Vítor Míguez"
+      ],
+      "published": "2025-07-23",
+      "year": 2025,
+      "venue": "Center for Open Science",
+      "type": "posted-content",
+      "doi": "10.31219/osf.io/rcmun_v1",
+      "url": "https://doi.org/10.31219/osf.io/rcmun_v1",
+      "score": 17,
+      "queryIds": [
+        "annotation-measurement"
+      ],
+      "reviewStatus": "screening_required"
+    },
+    {
+      "id": "10.1016/j.knosys.2025.113566",
+      "title": "Aligning large language models with human preferences using historical text edits",
+      "authors": [
+        "Jan Majkutewicz",
+        "Julian Szymański"
+      ],
+      "published": "2025-07-01",
+      "year": 2025,
+      "venue": "Knowledge-Based Systems",
+      "type": "journal-article",
+      "doi": "10.1016/j.knosys.2025.113566",
+      "url": "https://doi.org/10.1016/j.knosys.2025.113566",
+      "score": 17,
+      "queryIds": [
+        "historical-multilingual"
+      ],
+      "reviewStatus": "screening_required"
+    }
+  ]
+}

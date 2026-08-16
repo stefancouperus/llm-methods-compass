@@ -1,0 +1,481 @@
+{
+  "schemaVersion": "0.1",
+  "generatedAt": "2026-08-16T06:38:30.867Z",
+  "source": "Hugging Face public Hub API",
+  "sourceUrl": "https://huggingface.co/api/models",
+  "status": "automated_metadata_watchlist_only",
+  "cadenceDays": 30,
+  "queryVersion": "0.3",
+  "methodNote": "Public, non-gated source repositories are deduplicated by declared lineage and ranked for documentary completeness and Hub use. Presence is not evidence of quality, openness, license suitability, language/domain validity, runtime compatibility, or scholarly adequacy.",
+  "streams": [
+    {
+      "id": "retrieval-embeddings",
+      "label": "Retrieval embeddings",
+      "purpose": "Possible challengers for monolingual, multilingual, semantic, or hybrid passage retrieval.",
+      "query": {
+        "requests": [
+          {
+            "search": "embedding",
+            "pipelineTag": "feature-extraction"
+          },
+          {
+            "search": "multilingual embedding",
+            "pipelineTag": "feature-extraction",
+            "filter": "multilingual"
+          }
+        ],
+        "sorts": [
+          "lastModified",
+          "downloads"
+        ],
+        "inspected": 171
+      },
+      "candidates": [
+        {
+          "id": "Qwen/Qwen3-Embedding-0.6B",
+          "revision": "97b0c614be4d77ee51c0cef4e5f07c00f9eb65b3",
+          "lastModified": "2026-04-20T02:45:58.000Z",
+          "license": "apache-2.0",
+          "gated": false,
+          "pipelineTag": "feature-extraction",
+          "library": "sentence-transformers",
+          "downloads": 8143702,
+          "likes": 1152,
+          "baseModel": "Qwen/Qwen3-0.6B-Base",
+          "hasSafetensors": true,
+          "url": "https://huggingface.co/Qwen/Qwen3-Embedding-0.6B/tree/97b0c614be4d77ee51c0cef4e5f07c00f9eb65b3"
+        },
+        {
+          "id": "jinaai/jina-embeddings-v3",
+          "revision": "ab036b023d30b4d1138c4c3bfa9f0c445ab455d6",
+          "lastModified": "2026-04-08T14:04:08.000Z",
+          "license": "cc-by-nc-4.0",
+          "gated": false,
+          "pipelineTag": "feature-extraction",
+          "library": "transformers",
+          "downloads": 3227499,
+          "likes": 1153,
+          "baseModel": null,
+          "hasSafetensors": true,
+          "url": "https://huggingface.co/jinaai/jina-embeddings-v3/tree/ab036b023d30b4d1138c4c3bfa9f0c445ab455d6"
+        },
+        {
+          "id": "ibm-granite/granite-embedding-small-english-r2",
+          "revision": "2ab6fa8ea2d674564defd37171ae19079b864b33",
+          "lastModified": "2026-01-21T18:38:43.000Z",
+          "license": "apache-2.0",
+          "gated": false,
+          "pipelineTag": "feature-extraction",
+          "library": "sentence-transformers",
+          "downloads": 4479791,
+          "likes": 75,
+          "baseModel": null,
+          "hasSafetensors": true,
+          "url": "https://huggingface.co/ibm-granite/granite-embedding-small-english-r2/tree/2ab6fa8ea2d674564defd37171ae19079b864b33"
+        }
+      ]
+    },
+    {
+      "id": "retrieval-rerankers",
+      "label": "Retrieval rerankers",
+      "purpose": "Possible second-stage relevance models for a hybrid retrieval chain.",
+      "query": {
+        "requests": [
+          {
+            "search": "reranker",
+            "pipelineTag": "text-classification"
+          },
+          {
+            "search": "multilingual reranker",
+            "pipelineTag": "text-classification",
+            "filter": "multilingual"
+          }
+        ],
+        "sorts": [
+          "lastModified",
+          "downloads"
+        ],
+        "inspected": 140
+      },
+      "candidates": [
+        {
+          "id": "BAAI/bge-reranker-v2-m3",
+          "revision": "953dc6f6f85a1b2dbfca4c34a2796e7dde08d41e",
+          "lastModified": "2024-06-24T14:08:45.000Z",
+          "license": "apache-2.0",
+          "gated": false,
+          "pipelineTag": "text-classification",
+          "library": "sentence-transformers",
+          "downloads": 18939197,
+          "likes": 1136,
+          "baseModel": null,
+          "hasSafetensors": true,
+          "url": "https://huggingface.co/BAAI/bge-reranker-v2-m3/tree/953dc6f6f85a1b2dbfca4c34a2796e7dde08d41e"
+        },
+        {
+          "id": "jinaai/jina-reranker-m0",
+          "revision": "94bfe0aeb2d4dd7978362699cddd5893d4e0adc8",
+          "lastModified": "2026-04-09T07:14:14.000Z",
+          "license": "cc-by-nc-4.0",
+          "gated": false,
+          "pipelineTag": "text-classification",
+          "library": "transformers",
+          "downloads": 86357,
+          "likes": 120,
+          "baseModel": "Qwen/Qwen2-VL-2B-Instruct",
+          "hasSafetensors": true,
+          "url": "https://huggingface.co/jinaai/jina-reranker-m0/tree/94bfe0aeb2d4dd7978362699cddd5893d4e0adc8"
+        },
+        {
+          "id": "BAAI/bge-reranker-base",
+          "revision": "2cfc18c9415c912f9d8155881c133215df768a70",
+          "lastModified": "2024-06-24T14:10:03.000Z",
+          "license": "mit",
+          "gated": false,
+          "pipelineTag": "text-classification",
+          "library": "sentence-transformers",
+          "downloads": 4078375,
+          "likes": 242,
+          "baseModel": null,
+          "hasSafetensors": true,
+          "url": "https://huggingface.co/BAAI/bge-reranker-base/tree/2cfc18c9415c912f9d8155881c133215df768a70"
+        }
+      ]
+    },
+    {
+      "id": "encoder-backbones",
+      "label": "Encoder backbones",
+      "purpose": "Possible compact foundations to fine-tune for screening, classification, coding, or extraction.",
+      "query": {
+        "requests": [
+          {
+            "search": "ModernBERT",
+            "pipelineTag": "fill-mask"
+          },
+          {
+            "search": "XLM-RoBERTa",
+            "pipelineTag": "fill-mask"
+          },
+          {
+            "search": "DeBERTa",
+            "pipelineTag": "fill-mask"
+          }
+        ],
+        "sorts": [
+          "lastModified",
+          "downloads"
+        ],
+        "inspected": 390
+      },
+      "candidates": [
+        {
+          "id": "answerdotai/ModernBERT-base",
+          "revision": "8949b909ec900327062f0ebf497f51aef5e6f0c8",
+          "lastModified": "2025-01-15T20:11:48.000Z",
+          "license": "apache-2.0",
+          "gated": false,
+          "pipelineTag": "fill-mask",
+          "library": "transformers",
+          "downloads": 5618765,
+          "likes": 1085,
+          "baseModel": null,
+          "hasSafetensors": true,
+          "url": "https://huggingface.co/answerdotai/ModernBERT-base/tree/8949b909ec900327062f0ebf497f51aef5e6f0c8"
+        },
+        {
+          "id": "FacebookAI/xlm-roberta-base",
+          "revision": "e73636d4f797dec63c3081bb6ed5c7b0bb3f2089",
+          "lastModified": "2024-02-19T12:48:21.000Z",
+          "license": "mit",
+          "gated": false,
+          "pipelineTag": "fill-mask",
+          "library": "transformers",
+          "downloads": 18110036,
+          "likes": 882,
+          "baseModel": null,
+          "hasSafetensors": true,
+          "url": "https://huggingface.co/FacebookAI/xlm-roberta-base/tree/e73636d4f797dec63c3081bb6ed5c7b0bb3f2089"
+        },
+        {
+          "id": "FacebookAI/xlm-roberta-large",
+          "revision": "c23d21b0620b635a76227c604d44e43a9f0ee389",
+          "lastModified": "2024-02-19T12:48:30.000Z",
+          "license": "mit",
+          "gated": false,
+          "pipelineTag": "fill-mask",
+          "library": "transformers",
+          "downloads": 6271963,
+          "likes": 525,
+          "baseModel": null,
+          "hasSafetensors": true,
+          "url": "https://huggingface.co/FacebookAI/xlm-roberta-large/tree/c23d21b0620b635a76227c604d44e43a9f0ee389"
+        }
+      ]
+    },
+    {
+      "id": "span-entity-extraction",
+      "label": "Span and entity extraction",
+      "purpose": "Possible task-ready leads for named entities, typed spans, and evidence-linked extraction.",
+      "query": {
+        "requests": [
+          {
+            "search": "NER",
+            "pipelineTag": "token-classification"
+          },
+          {
+            "search": "entity extraction",
+            "pipelineTag": "token-classification"
+          }
+        ],
+        "sorts": [
+          "lastModified",
+          "downloads"
+        ],
+        "inspected": 172
+      },
+      "candidates": [
+        {
+          "id": "dslim/bert-base-NER",
+          "revision": "d1a3e8f13f8c3566299d95fcfc9a8d2382a9affc",
+          "lastModified": "2024-10-08T07:51:39.000Z",
+          "license": "mit",
+          "gated": false,
+          "pipelineTag": "token-classification",
+          "library": "transformers",
+          "downloads": 1665228,
+          "likes": 728,
+          "baseModel": null,
+          "hasSafetensors": true,
+          "url": "https://huggingface.co/dslim/bert-base-NER/tree/d1a3e8f13f8c3566299d95fcfc9a8d2382a9affc"
+        },
+        {
+          "id": "OpenMed/OpenMed-NER-PharmaDetect-SuperClinical-434M",
+          "revision": "d4259d05b0e924ad786f5c342ddedf46fe956331",
+          "lastModified": "2025-08-05T09:31:25.000Z",
+          "license": "apache-2.0",
+          "gated": false,
+          "pipelineTag": "token-classification",
+          "library": "transformers",
+          "downloads": 255334,
+          "likes": 29,
+          "baseModel": null,
+          "hasSafetensors": true,
+          "url": "https://huggingface.co/OpenMed/OpenMed-NER-PharmaDetect-SuperClinical-434M/tree/d4259d05b0e924ad786f5c342ddedf46fe956331"
+        },
+        {
+          "id": "OpenMed/OpenMed-NER-DiseaseDetect-BioMed-335M",
+          "revision": "a62e2a2da5ff7d6b79024ba906f481581466ea61",
+          "lastModified": "2025-08-05T09:41:31.000Z",
+          "license": "apache-2.0",
+          "gated": false,
+          "pipelineTag": "token-classification",
+          "library": "transformers",
+          "downloads": 210098,
+          "likes": 9,
+          "baseModel": null,
+          "hasSafetensors": true,
+          "url": "https://huggingface.co/OpenMed/OpenMed-NER-DiseaseDetect-BioMed-335M/tree/a62e2a2da5ff7d6b79024ba906f481581466ea61"
+        }
+      ]
+    },
+    {
+      "id": "sequence-transformations",
+      "label": "Sequence transformation",
+      "purpose": "Possible encoder-decoder leads for summarisation, translation, normalization, or controlled text transformation.",
+      "query": {
+        "requests": [
+          {
+            "search": "multilingual",
+            "pipelineTag": "text2text-generation"
+          },
+          {
+            "search": "summarization",
+            "pipelineTag": "summarization"
+          }
+        ],
+        "sorts": [
+          "lastModified",
+          "downloads"
+        ],
+        "inspected": 141
+      },
+      "candidates": [
+        {
+          "id": "Falconsai/text_summarization",
+          "revision": "6e505f907968c4a9360773ff57885cdc6dca4bfd",
+          "lastModified": "2024-02-17T07:55:14.000Z",
+          "license": "apache-2.0",
+          "gated": false,
+          "pipelineTag": "summarization",
+          "library": "transformers",
+          "downloads": 43380,
+          "likes": 303,
+          "baseModel": null,
+          "hasSafetensors": true,
+          "url": "https://huggingface.co/Falconsai/text_summarization/tree/6e505f907968c4a9360773ff57885cdc6dca4bfd"
+        },
+        {
+          "id": "hosseinmhmdkhani/mt5-small-finetuned-persian-news-summarization",
+          "revision": "262722766812e2dcc2df9052ed1a8091f3e09c71",
+          "lastModified": "2026-07-26T20:57:11.000Z",
+          "license": "apache-2.0",
+          "gated": false,
+          "pipelineTag": "summarization",
+          "library": "transformers",
+          "downloads": 217,
+          "likes": 0,
+          "baseModel": "google/mt5-small",
+          "hasSafetensors": true,
+          "url": "https://huggingface.co/hosseinmhmdkhani/mt5-small-finetuned-persian-news-summarization/tree/262722766812e2dcc2df9052ed1a8091f3e09c71"
+        },
+        {
+          "id": "Falconsai/medical_summarization",
+          "revision": "28df52e1c1a37ae90145951ca5d684aa58ec830b",
+          "lastModified": "2024-01-20T12:48:04.000Z",
+          "license": "apache-2.0",
+          "gated": false,
+          "pipelineTag": "summarization",
+          "library": "transformers",
+          "downloads": 2568,
+          "likes": 154,
+          "baseModel": null,
+          "hasSafetensors": true,
+          "url": "https://huggingface.co/Falconsai/medical_summarization/tree/28df52e1c1a37ae90145951ca5d684aa58ec830b"
+        }
+      ]
+    },
+    {
+      "id": "instruction-models",
+      "label": "Instruction models",
+      "purpose": "Possible open-weight challengers for contextual coding, constrained generation, and bounded interpretive assistance.",
+      "query": {
+        "requests": [
+          {
+            "search": "instruct",
+            "pipelineTag": "text-generation"
+          },
+          {
+            "search": "multilingual instruct",
+            "pipelineTag": "text-generation",
+            "filter": "multilingual"
+          }
+        ],
+        "sorts": [
+          "lastModified",
+          "downloads"
+        ],
+        "inspected": 160
+      },
+      "candidates": [
+        {
+          "id": "swiss-ai/Apertus-8B-Instruct-2509",
+          "revision": "b946d40447b2b597999b9c86d44bee0b452c919f",
+          "lastModified": "2026-07-17T08:57:20.000Z",
+          "license": "apache-2.0",
+          "gated": false,
+          "pipelineTag": "text-generation",
+          "library": "transformers",
+          "downloads": 624667,
+          "likes": 484,
+          "baseModel": "swiss-ai/Apertus-8B-2509",
+          "hasSafetensors": true,
+          "url": "https://huggingface.co/swiss-ai/Apertus-8B-Instruct-2509/tree/b946d40447b2b597999b9c86d44bee0b452c919f"
+        },
+        {
+          "id": "Qwen/Qwen3-4B-Instruct-2507",
+          "revision": "cdbee75f17c01a7cc42f958dc650907174af0554",
+          "lastModified": "2025-09-17T06:56:53.000Z",
+          "license": "apache-2.0",
+          "gated": false,
+          "pipelineTag": "text-generation",
+          "library": "transformers",
+          "downloads": 3324645,
+          "likes": 918,
+          "baseModel": null,
+          "hasSafetensors": true,
+          "url": "https://huggingface.co/Qwen/Qwen3-4B-Instruct-2507/tree/cdbee75f17c01a7cc42f958dc650907174af0554"
+        },
+        {
+          "id": "meta-llama/Meta-Llama-3-8B-Instruct",
+          "revision": "8afb486c1db24fe5011ec46dfbe5b5dccdb575c2",
+          "lastModified": "2025-06-18T23:49:51.000Z",
+          "license": "llama3",
+          "gated": true,
+          "pipelineTag": "text-generation",
+          "library": "transformers",
+          "downloads": 2020884,
+          "likes": 4823,
+          "baseModel": null,
+          "hasSafetensors": true,
+          "url": "https://huggingface.co/meta-llama/Meta-Llama-3-8B-Instruct/tree/8afb486c1db24fe5011ec46dfbe5b5dccdb575c2"
+        }
+      ]
+    },
+    {
+      "id": "document-understanding",
+      "label": "Document OCR and vision",
+      "purpose": "Possible upstream challengers when page pixels, layout, handwriting, tables, or reading order matter.",
+      "query": {
+        "requests": [
+          {
+            "search": "OCR",
+            "pipelineTag": "image-to-text"
+          },
+          {
+            "search": "document",
+            "pipelineTag": "image-text-to-text"
+          }
+        ],
+        "sorts": [
+          "lastModified",
+          "downloads"
+        ],
+        "inspected": 190
+      },
+      "candidates": [
+        {
+          "id": "unsloth/GLM-OCR",
+          "revision": "fae39dc9c35655593e5f9f77e2b01276ad343b38",
+          "lastModified": "2026-02-03T14:29:16.000Z",
+          "license": "mit",
+          "gated": false,
+          "pipelineTag": "image-to-text",
+          "library": "transformers",
+          "downloads": 32996,
+          "likes": 36,
+          "baseModel": "zai-org/GLM-OCR",
+          "hasSafetensors": true,
+          "url": "https://huggingface.co/unsloth/GLM-OCR/tree/fae39dc9c35655593e5f9f77e2b01276ad343b38"
+        },
+        {
+          "id": "tiiuae/Falcon-OCR",
+          "revision": "42ec56b72a23984ac059e7c8a6d397a8529423fe",
+          "lastModified": "2026-07-03T06:59:13.000Z",
+          "license": "apache-2.0",
+          "gated": false,
+          "pipelineTag": "image-to-text",
+          "library": "transformers",
+          "downloads": 3357,
+          "likes": 137,
+          "baseModel": null,
+          "hasSafetensors": true,
+          "url": "https://huggingface.co/tiiuae/Falcon-OCR/tree/42ec56b72a23984ac059e7c8a6d397a8529423fe"
+        },
+        {
+          "id": "PaddlePaddle/PP-OCRv6_medium_det_safetensors",
+          "revision": "4236c2b61741a259c091fd879dcc4edc339e916c",
+          "lastModified": "2026-06-12T03:10:52.000Z",
+          "license": "apache-2.0",
+          "gated": false,
+          "pipelineTag": "image-to-text",
+          "library": "PaddleOCR",
+          "downloads": 1888,
+          "likes": 124,
+          "baseModel": null,
+          "hasSafetensors": true,
+          "url": "https://huggingface.co/PaddlePaddle/PP-OCRv6_medium_det_safetensors/tree/4236c2b61741a259c091fd879dcc4edc339e916c"
+        }
+      ]
+    }
+  ]
+}
