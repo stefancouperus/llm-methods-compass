@@ -52,7 +52,9 @@ jobs:
       - name: Decide whether this run should deploy
         id: decision
         run: |
-          if [ "${{ github.event_name }}" != "schedule" ] || [ "${{ steps.scheduled_refresh.outputs.changed }}" = "true" ]; then
+          if [ "${{ vars.ENABLE_PAGES_DEPLOYMENT }}" != "true" ]; then
+            echo "should_deploy=false" >> "$GITHUB_OUTPUT"
+          elif [ "${{ github.event_name }}" != "schedule" ] || [ "${{ steps.scheduled_refresh.outputs.changed }}" = "true" ]; then
             echo "should_deploy=true" >> "$GITHUB_OUTPUT"
           else
             echo "should_deploy=false" >> "$GITHUB_OUTPUT"

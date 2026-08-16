@@ -51,14 +51,15 @@ The monthly evidence workflow may add a GitHub-generated commit. Running `git pu
 
 ## Publish or refresh the website
 
-Pushing to `main` automatically starts the included **Deploy dashboard to GitHub Pages** workflow once Pages has been enabled.
+Pushing to `main` starts the included **Deploy dashboard to GitHub Pages** workflow, but publication remains locked until the repository variable `ENABLE_PAGES_DEPLOYMENT` is explicitly set to `true`. Leaving it absent or setting it to `false` prevents an accidental public deployment.
 
 For a public Pages site:
 
 1. In the repository, open **Settings → Pages** and choose **GitHub Actions** as the source.
-2. Open **Settings → Actions → General → Workflow permissions** and choose read/write permission, which the monthly evidence refresh needs.
-3. Open **Actions → Deploy dashboard to GitHub Pages → Run workflow** for the first deployment. Later pushes redeploy automatically.
-4. Check the workflow’s green tick and then open the displayed website address.
+2. Open **Settings → Secrets and variables → Actions → Variables**. Create `ENABLE_PAGES_DEPLOYMENT` with the value `true`.
+3. Open **Settings → Actions → General → Workflow permissions** and choose read/write permission, which the monthly evidence refresh needs.
+4. Open **Actions → Deploy dashboard to GitHub Pages → Run workflow** for the first deployment. Later pushes redeploy automatically.
+5. Check the workflow’s green tick and then open the displayed website address.
 
 For a genuinely private Pages site, first place the private repository in an eligible GitHub Enterprise Cloud organisation. Then open **Settings → Pages** and set the site visibility to **Private** before running the deployment workflow.
 
@@ -70,4 +71,3 @@ git show COMMIT_ID
 ```
 
 These commands inspect earlier versions without changing files. If a published change must be reversed, use `git revert COMMIT_ID`; this creates a new, auditable reversal instead of erasing history.
-

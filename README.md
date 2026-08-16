@@ -49,11 +49,12 @@ For a concise first-publication and day-to-day update guide, see [`UPDATE_AND_PU
 
 1. create the GitHub repository and push the files to its `main` branch;
 2. open **Settings → Pages** and select **GitHub Actions** as the source;
-3. open **Settings → Actions → General → Workflow permissions** and allow read/write access so the scheduled job can preserve the refreshed snapshot;
-4. open **Actions → Deploy dashboard to GitHub Pages** and run it manually once, or push another commit to `main`; and
-5. use the Pages URL shown by the successful deployment.
+3. open **Settings → Secrets and variables → Actions → Variables**, create `ENABLE_PAGES_DEPLOYMENT`, and give it the value `true`;
+4. open **Settings → Actions → General → Workflow permissions** and allow read/write access so the scheduled job can preserve the refreshed snapshot;
+5. open **Actions → Deploy dashboard to GitHub Pages** and run it manually once, or push another commit to `main`; and
+6. use the Pages URL shown by the successful deployment.
 
-The workflow derives the repository subpath from GitHub Pages, so project sites such as `https://username.github.io/repository/` work without hard-coding a repository name. Repository privacy and website access are separate decisions: GitHub Pages is normally public even when its source repository is private, unless an eligible organization account supplies private Pages access control.
+The deployment variable is deliberately absent or `false` while the project is private-only, so ordinary pushes cannot accidentally publish the site. The workflow derives the repository subpath from GitHub Pages, so project sites such as `https://username.github.io/repository/` work without hard-coding a repository name. Repository privacy and website access are separate decisions: GitHub Pages is normally public even when its source repository is private, unless an eligible organization account supplies private Pages access control.
 
 ### Monthly model and literature discovery
 

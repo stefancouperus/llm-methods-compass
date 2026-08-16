@@ -2284,10 +2284,11 @@ vertical-align: -.125em;
 </section>
 <section id="publish-or-refresh-the-website" class="level2">
 <h2 class="anchored" data-anchor-id="publish-or-refresh-the-website">Publish or refresh the website</h2>
-<p>Pushing to <code>main</code> automatically starts the included <strong>Deploy dashboard to GitHub Pages</strong> workflow once Pages has been enabled.</p>
+<p>Pushing to <code>main</code> starts the included <strong>Deploy dashboard to GitHub Pages</strong> workflow, but publication remains locked until the repository variable <code>ENABLE_PAGES_DEPLOYMENT</code> is explicitly set to <code>true</code>. Leaving it absent or setting it to <code>false</code> prevents an accidental public deployment.</p>
 <p>For a public Pages site:</p>
 <ol type="1">
 <li>In the repository, open <strong>Settings → Pages</strong> and choose <strong>GitHub Actions</strong> as the source.</li>
+<li>Open <strong>Settings → Secrets and variables → Actions → Variables</strong>. Create <code>ENABLE_PAGES_DEPLOYMENT</code> with the value <code>true</code>.</li>
 <li>Open <strong>Settings → Actions → General → Workflow permissions</strong> and choose read/write permission, which the monthly evidence refresh needs.</li>
 <li>Open <strong>Actions → Deploy dashboard to GitHub Pages → Run workflow</strong> for the first deployment. Later pushes redeploy automatically.</li>
 <li>Check the workflow’s green tick and then open the displayed website address.</li>
