@@ -5,10 +5,9 @@ on:
     branches: [main]
   workflow_dispatch:
   schedule:
-    # A lightweight daily age check makes delayed GitHub schedules harmless.
-    # API access and deployment occur only when a committed snapshot is at
-    # least 30 days old.
-    - cron: "23 4 * * *"
+    # Refresh the discovery queues one day before the researcher's recurring
+    # review reminder. The non-round minute reduces peak-time delay risk.
+    - cron: "23 4 14 * *"
       timezone: "Europe/Amsterdam"
 
 permissions:
@@ -29,12 +28,12 @@ jobs:
       - name: Check out repository
         uses: actions/checkout@v6
 
-      - name: Refresh model and literature watchlists when thirty days have elapsed
+      - name: Refresh monthly model and literature watchlists
         id: scheduled_refresh
         if: github.event_name == 'schedule'
         run: |
-          node scripts/refresh-model-discovery.mjs --if-stale-days=30
-          node scripts/refresh-literature-discovery.mjs --if-stale-days=30
+          node scripts/refresh-model-discovery.mjs
+          node scripts/refresh-literature-discovery.mjs
           if git diff --quiet -- app/model-discovery.json app/literature-discovery.json; then
             echo "changed=false" >> "$GITHUB_OUTPUT"
           else

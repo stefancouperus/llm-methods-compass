@@ -2209,6 +2209,7 @@ vertical-align: -.125em;
    
   <ul class="collapse">
   <li><a href="#the-important-privacy-distinction" id="toc-the-important-privacy-distinction" class="nav-link active" data-scroll-target="#the-important-privacy-distinction">The important privacy distinction</a></li>
+  <li><a href="#monthly-model-and-literature-maintenance" id="toc-monthly-model-and-literature-maintenance" class="nav-link" data-scroll-target="#monthly-model-and-literature-maintenance">Monthly model and literature maintenance</a></li>
   <li><a href="#update-the-dashboard" id="toc-update-the-dashboard" class="nav-link" data-scroll-target="#update-the-dashboard">Update the dashboard</a></li>
   <li><a href="#publish-or-refresh-the-website" id="toc-publish-or-refresh-the-website" class="nav-link" data-scroll-target="#publish-or-refresh-the-website">Publish or refresh the website</a></li>
   <li><a href="#undo-or-inspect-a-change" id="toc-undo-or-inspect-a-change" class="nav-link" data-scroll-target="#undo-or-inspect-a-change">Undo or inspect a change</a></li>
@@ -2248,6 +2249,54 @@ vertical-align: -.125em;
 <p>The project can be stored in a <strong>private GitHub repository</strong>. That does not automatically make its GitHub Pages website private: Pages sites are normally public even when their source repository is private. A genuinely access-restricted Pages site requires a private repository owned by a <strong>GitHub Enterprise Cloud organisation</strong> and Pages access control.</p>
 <p>For this personal GitHub account, the safe starting point is therefore: keep the repository private and do not enable Pages until either (a) a public website is acceptable, or (b) the repository has been moved to an eligible Enterprise Cloud organisation.</p>
 <p>Official guidance: <a href="https://docs.github.com/en/pages/getting-started-with-github-pages/configuring-a-publishing-source-for-your-github-pages-site">publishing sources and the private-repository warning</a> and <a href="https://docs.github.com/en/enterprise-cloud@latest/pages/getting-started-with-github-pages/changing-the-visibility-of-your-github-pages-site">private Pages access control</a>.</p>
+</section>
+<section id="monthly-model-and-literature-maintenance" class="level2">
+<h2 class="anchored" data-anchor-id="monthly-model-and-literature-maintenance">Monthly model and literature maintenance</h2>
+<p>The update process is <strong>semi-automated by design</strong>. Discovery is automatic; changing the scholarly advice is not.</p>
+<p>The current <code>ENABLE_PAGES_DEPLOYMENT=false</code> safety lock blocks website publication only. It does <strong>not</strong> block the monthly discovery refresh or its private GitHub commit.</p>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 50%">
+<col style="width: 50%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Part</th>
+<th>What happens</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Automatic, on the 14th</td>
+<td>GitHub queries public Hugging Face metadata for model leads and Crossref metadata for recent publications. It validates and dates both lists, then commits them to the private repository.</td>
+</tr>
+<tr class="even">
+<td>Not automatic</td>
+<td>No discovered model enters the curated register merely because it is popular or recent. No publication changes the QMD, reference library or advisory rules merely because a search found it.</td>
+</tr>
+<tr class="odd">
+<td>Researcher checkpoint, on the 15th</td>
+<td>Check that the workflow succeeded; appraise plausible new models and publications; confirm, correct or reject proposed changes; then commit the reviewed record.</td>
+</tr>
+</tbody>
+</table>
+<p>The automatic model list is <code>app/model-discovery.json</code>. It is a <strong>watchlist</strong>, not a recommendation list. Before promoting a model into <code>app/model-registry.ts</code>, check at least its license and openness, documentation, exact revision, task and language fit, hardware feasibility, known limitations and performance on a project-specific benchmark.</p>
+<p>The automatic publication list is <code>app/literature-discovery.json</code>. Every entry initially means <strong>screening required</strong>. Relevant full texts must be read and appraised for publication status, methods, scope, limitations and distinct contribution. Record every decision in <code>app/literature-review-decisions.json</code>. Only sources judged to add something distinct should change <code>../llm_selection_strategy.qmd</code>, <code>app/research-references.ts</code> or the dashboard rules. The researcher—not an AI assistant—confirms the final appraisal. The strategy QMD currently lives one folder above the dashboard repository, so its master copy remains local; commit the corresponding dashboard reference and rule changes here.</p>
+<p>You do not need to edit these files unaided. On or after the 15th, open this project and give Sol this instruction:</p>
+<blockquote class="blockquote">
+<p>Review the latest <code>app/model-discovery.json</code> and <code>app/literature-discovery.json</code>. Treat both as unvalidated discovery queues. Propose documented model-register changes and appraise every new publication against the QMD and existing references. Do not promote anything automatically. Show me the consequential decisions and sources requiring my confirmation; after I confirm, update the appraisal log, QMD, curated references and dashboard rules where warranted, validate the project, commit and push the changes.</p>
+</blockquote>
+<p>Your short monthly checklist is:</p>
+<ol type="1">
+<li>Open <a href="https://github.com/stefancouperus/llm-methods-compass/actions">the repository’s Actions page</a> and check that the latest <strong>Deploy dashboard to GitHub Pages</strong> run has a green tick.</li>
+<li>If it failed or did not run, choose the workflow and select <strong>Run workflow</strong>. This refreshes both discovery queues manually.</li>
+<li>Run <code>git pull --ff-only</code> locally, because the automatic job may have added a commit.</li>
+<li>Ask Sol to perform the provisional screening using the instruction above.</li>
+<li>Read the publications and model documentation behind any proposed consequential change. Confirm or correct the decisions.</li>
+<li>Have Sol record the confirmed decisions, validate the dashboard and push the reviewed update.</li>
+</ol>
+<p>The dashboard displays separate model- and literature-update dates. If an API or validation step fails, the last valid committed lists remain in place. GitHub notes that scheduled workflows run from the default branch and may occasionally be delayed; see <a href="https://docs.github.com/en/actions/reference/workflows-and-actions/events-that-trigger-workflows#schedule">GitHub’s scheduled-workflow documentation</a>.</p>
+<p><a href="MONTHLY_EVIDENCE_REVIEW.ics">Download the recurring calendar reminder</a>. It creates a one-hour event at 09:00 Europe/Amsterdam on the 15th of every month, with the checklist included. You can change the time after importing it.</p>
 </section>
 <section id="update-the-dashboard" class="level2">
 <h2 class="anchored" data-anchor-id="update-the-dashboard">Update the dashboard</h2>

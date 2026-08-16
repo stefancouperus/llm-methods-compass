@@ -46,6 +46,7 @@ npm test
 The project contains a dedicated static build and deployment workflow. Put the contents of this `dashboard/` folder at the root of the repository, then:
 
 For a concise first-publication and day-to-day update guide, see [`UPDATE_AND_PUBLISH.qmd`](UPDATE_AND_PUBLISH.qmd) (or its self-contained rendered copy, [`UPDATE_AND_PUBLISH.html`](UPDATE_AND_PUBLISH.html)).
+The importable [`MONTHLY_EVIDENCE_REVIEW.ics`](MONTHLY_EVIDENCE_REVIEW.ics) adds a recurring human-review reminder for the 15th of every month.
 
 1. create the GitHub repository and push the files to its `main` branch;
 2. open **Settings → Pages** and select **GitHub Actions** as the source;
@@ -58,7 +59,7 @@ The deployment variable is deliberately absent or `false` while the project is p
 
 ### Monthly model and literature discovery
 
-The **Deploy dashboard to GitHub Pages** workflow performs a lightweight age check each day and refreshes only after a committed snapshot is at least 30 days old; other scheduled runs stop before dependency installation or deployment. GitHub may delay scheduled work, so the displayed dates—not the nominal schedule—are authoritative.
+The **Deploy dashboard to GitHub Pages** workflow refreshes the two discovery queues at 04:23 Europe/Amsterdam on the 14th of each month. GitHub may delay scheduled work, so the displayed dates—not the nominal schedule—are authoritative. The following day's calendar reminder supplies the human checkpoint.
 
 Each successful model refresh:
 
@@ -71,6 +72,8 @@ Each successful model refresh:
 The same run searches Crossref for recent work on qualitative research, text annotation and measurement, validation and downstream inference, prompting and reproducibility, historical or multilingual text, and open/local model use. It updates `app/literature-discovery.json` with metadata leads marked `screening_required`. The automated list is deliberately not integrated into advice: a researcher must read and appraise publication status, methods, scope, limitations and relevance before changing the QMD, rule set or curated reference library.
 
 Every appraisal is preserved separately in `app/literature-review-decisions.json`. Each discovered item receives an explicit decision—integrated, already covered, superseded, background only or outside scope—plus a reason and the QMD modules considered. The current first pass is transparently labelled AI-assisted and requires researcher confirmation before publication. The dashboard compares the appraised snapshot identifier with the latest discovery snapshot. After the next automatic discovery refresh it will therefore show **review required** until a new set of decisions is recorded; neither an automated search nor an AI-assisted first pass can present itself as a completed scholarly literature review.
+
+The update is therefore deliberately **semi-automated**. GitHub automates metadata discovery, validation, dating and preservation. A researcher still decides whether a discovered model is adequately documented and worth benchmarking, and whether a publication changes the QMD, curated reference library or advisory rules. Discovery never promotes an item automatically.
 
 After checking the promoted sources and all decision reasons, the project owner records confirmation in that file by changing `confirmationStatus` to `researcher_confirmed` and entering `confirmedBy` and `confirmedAt`. Any disagreement should instead revise the relevant decision, QMD passage and curated reference entry before confirmation. The next static build will display the confirmed status; no browser-only click can alter the scholarly record.
 

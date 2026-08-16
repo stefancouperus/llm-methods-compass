@@ -1,0 +1,52 @@
+BEGIN:VCALENDAR
+VERSION:2.0
+PRODID:-//LLM Methods Compass//Monthly Evidence Review//EN
+CALSCALE:GREGORIAN
+METHOD:PUBLISH
+X-WR-CALNAME:LLM Methods Compass monthly review
+BEGIN:VTIMEZONE
+TZID:Europe/Amsterdam
+X-LIC-LOCATION:Europe/Amsterdam
+BEGIN:DAYLIGHT
+TZOFFSETFROM:+0100
+TZOFFSETTO:+0200
+TZNAME:CEST
+DTSTART:19700329T020000
+RRULE:FREQ=YEARLY;BYMONTH=3;BYDAY=-1SU
+END:DAYLIGHT
+BEGIN:STANDARD
+TZOFFSETFROM:+0200
+TZOFFSETTO:+0100
+TZNAME:CET
+DTSTART:19701025T030000
+RRULE:FREQ=YEARLY;BYMONTH=10;BYDAY=-1SU
+END:STANDARD
+END:VTIMEZONE
+BEGIN:VEVENT
+UID:monthly-evidence-review-llm-methods-compass@stefancouperus
+DTSTAMP:20260816T093000Z
+DTSTART;TZID=Europe/Amsterdam:20260915T090000
+DTEND;TZID=Europe/Amsterdam:20260915T100000
+RRULE:FREQ=MONTHLY;BYMONTHDAY=15
+SUMMARY:Review LLM model and literature updates
+DESCRIPTION:Monthly human review after automatic discovery on the 14th.\n1.
+ Open the repository Actions page and check that the workflow
+ succeeded.\n2.
+ If needed\, run Deploy dashboard to GitHub Pages manually.\n3. Run git
+ pull --ff-only locally.\n4. Ask Sol to screen both discovery JSON files
+ without automatic promotion.\n5. Read and confirm consequential model or
+ literature
+ decisions.\n6. Have Sol update the appraisal log\, QMD\, references and
+ dashboard rules where warranted\, validate them\, commit and push.\nGuide:
+ UPDATE_AND_PUBLISH.qmd
+LOCATION:LLM Methods Compass private GitHub repository
+URL:https://github.com/stefancouperus/llm-methods-compass/actions
+STATUS:CONFIRMED
+TRANSP:OPAQUE
+BEGIN:VALARM
+TRIGGER:-PT15M
+ACTION:DISPLAY
+DESCRIPTION:Review the LLM Methods Compass evidence update
+END:VALARM
+END:VEVENT
+END:VCALENDAR

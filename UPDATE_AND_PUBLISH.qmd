@@ -18,6 +18,39 @@ For this personal GitHub account, the safe starting point is therefore: keep the
 
 Official guidance: [publishing sources and the private-repository warning](https://docs.github.com/en/pages/getting-started-with-github-pages/configuring-a-publishing-source-for-your-github-pages-site) and [private Pages access control](https://docs.github.com/en/enterprise-cloud@latest/pages/getting-started-with-github-pages/changing-the-visibility-of-your-github-pages-site).
 
+## Monthly model and literature maintenance
+
+The update process is **semi-automated by design**. Discovery is automatic; changing the scholarly advice is not.
+
+The current `ENABLE_PAGES_DEPLOYMENT=false` safety lock blocks website publication only. It does **not** block the monthly discovery refresh or its private GitHub commit.
+
+| Part | What happens |
+|---|---|
+| Automatic, on the 14th | GitHub queries public Hugging Face metadata for model leads and Crossref metadata for recent publications. It validates and dates both lists, then commits them to the private repository. |
+| Not automatic | No discovered model enters the curated register merely because it is popular or recent. No publication changes the QMD, reference library or advisory rules merely because a search found it. |
+| Researcher checkpoint, on the 15th | Check that the workflow succeeded; appraise plausible new models and publications; confirm, correct or reject proposed changes; then commit the reviewed record. |
+
+The automatic model list is `app/model-discovery.json`. It is a **watchlist**, not a recommendation list. Before promoting a model into `app/model-registry.ts`, check at least its license and openness, documentation, exact revision, task and language fit, hardware feasibility, known limitations and performance on a project-specific benchmark.
+
+The automatic publication list is `app/literature-discovery.json`. Every entry initially means **screening required**. Relevant full texts must be read and appraised for publication status, methods, scope, limitations and distinct contribution. Record every decision in `app/literature-review-decisions.json`. Only sources judged to add something distinct should change `../llm_selection_strategy.qmd`, `app/research-references.ts` or the dashboard rules. The researcher—not an AI assistant—confirms the final appraisal. The strategy QMD currently lives one folder above the dashboard repository, so its master copy remains local; commit the corresponding dashboard reference and rule changes here.
+
+You do not need to edit these files unaided. On or after the 15th, open this project and give Sol this instruction:
+
+> Review the latest `app/model-discovery.json` and `app/literature-discovery.json`. Treat both as unvalidated discovery queues. Propose documented model-register changes and appraise every new publication against the QMD and existing references. Do not promote anything automatically. Show me the consequential decisions and sources requiring my confirmation; after I confirm, update the appraisal log, QMD, curated references and dashboard rules where warranted, validate the project, commit and push the changes.
+
+Your short monthly checklist is:
+
+1. Open [the repository's Actions page](https://github.com/stefancouperus/llm-methods-compass/actions) and check that the latest **Deploy dashboard to GitHub Pages** run has a green tick.
+2. If it failed or did not run, choose the workflow and select **Run workflow**. This refreshes both discovery queues manually.
+3. Run `git pull --ff-only` locally, because the automatic job may have added a commit.
+4. Ask Sol to perform the provisional screening using the instruction above.
+5. Read the publications and model documentation behind any proposed consequential change. Confirm or correct the decisions.
+6. Have Sol record the confirmed decisions, validate the dashboard and push the reviewed update.
+
+The dashboard displays separate model- and literature-update dates. If an API or validation step fails, the last valid committed lists remain in place. GitHub notes that scheduled workflows run from the default branch and may occasionally be delayed; see [GitHub's scheduled-workflow documentation](https://docs.github.com/en/actions/reference/workflows-and-actions/events-that-trigger-workflows#schedule).
+
+[Download the recurring calendar reminder](MONTHLY_EVIDENCE_REVIEW.ics). It creates a one-hour event at 09:00 Europe/Amsterdam on the 15th of every month, with the checklist included. You can change the time after importing it.
+
 ## Update the dashboard
 
 Open Terminal and run:
