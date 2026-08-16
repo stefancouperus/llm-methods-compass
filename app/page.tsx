@@ -9,6 +9,7 @@ type StepId = "project" | "sources" | "chain" | "evidence" | "models" | "infrast
 
 type FormState = {
   projectTitle: string;
+  researchGoal: string;
   researchQuestion: string;
   prospectiveClaim: string;
   population: string;
@@ -90,7 +91,7 @@ const operations = [
 ];
 
 const steps: { id: StepId; label: string; eyebrow: string }[] = [
-  { id: "project", label: "Research claim", eyebrow: "01" },
+  { id: "project", label: "Research goal", eyebrow: "01" },
   { id: "sources", label: "Sources and collection", eyebrow: "02" },
   { id: "chain", label: "Research tasks", eyebrow: "03" },
   { id: "evidence", label: "Influence and validation", eyebrow: "04" },
@@ -100,6 +101,7 @@ const steps: { id: StepId; label: string; eyebrow: string }[] = [
 
 const blankState: FormState = {
   projectTitle: "",
+  researchGoal: "",
   researchQuestion: "",
   prospectiveClaim: "",
   population: "",
@@ -134,6 +136,8 @@ const blankState: FormState = {
 
 const exemplarState: FormState = {
   projectTitle: "How the Past is Made in Parliament",
+  researchGoal:
+    "To understand how Dutch parliamentary actors used and reshaped colonial memory over time, and what political work those invocations performed.",
   researchQuestion:
     "How, by whom, and for what political purposes was the Dutch colonial past invoked, framed, contested, and reinterpreted in Dutch parliamentary speech between 1919 and 2025?",
   prospectiveClaim:
@@ -171,9 +175,9 @@ const exemplarState: FormState = {
 
 const helpText: Record<string, string> = {
   claim:
-    "The strongest statement you may eventually make. If the model's output is central to that statement, you need more extensive checking than when the model only helps you find passages to read.",
+    "If you already have an expected contribution or possible conclusion, record it here. Exploratory and interpretive projects may leave this open. Later questions still ask how strongly model output could affect whatever conclusions emerge, because that determines the checking required.",
   population:
-    "The wider body of people, texts, events or institutions your claim concerns—not simply the files you happen to have downloaded.",
+    "The wider body of people, texts, events or institutions the research concerns—not simply the files you happen to have downloaded.",
   sourceFormat:
     "How your sources are currently stored. OCR means text created automatically from scans. Mistakes in OCR, transcription or page order can affect every later step.",
   scale:
@@ -181,15 +185,15 @@ const helpText: Record<string, string> = {
   operation:
     "Each task should be considered separately. For example, finding passages and assigning labels can fail in different ways and may need different models.",
   dependence:
-    "Choose a higher number when model output directly supports your final claim. Choose a lower number when it only helps you explore or decide what to read.",
+    "Choose a higher number when model output could directly shape the project's conclusions. Choose a lower number when it only helps you explore or decide what to read. This can be answered even when the eventual conclusion is not yet known.",
   construct:
     "Ask whether a careful reader should normally reach one checkable answer, apply one written coding rule, or whether several interpretations may reasonably remain.",
   human:
-    "This asks who will create trusted examples and inspect mistakes. Independent checking is especially important when model output supports publication claims.",
+    "This asks who will create trusted examples and inspect mistakes. Independent checking is especially important when model output supports published conclusions.",
   reviewCoverage:
     "This asks which model outputs a person will check independently before they influence the result. Reviewing only returned passages or disputed labels does not reveal material the model missed.",
   reviewCapacity:
-    "Estimate how much independent checking the project can actually sustain. A limited review budget may require a smaller claim, more abstention or less model influence; it cannot simply be ignored in the advice.",
+    "Estimate how much independent checking the project can actually sustain. A limited review budget may require a narrower conclusion, more abstention or less model influence; it cannot simply be ignored in the advice.",
   downstream:
     "Choose the furthest point model output will reach. A reading list needs different validation from a dataset, historical trend, statistical model or published interpretation.",
   crossModel:
@@ -467,7 +471,7 @@ function displayDate(value: string) {
 }
 
 function getStepComplete(step: StepId, form: FormState) {
-  if (step === "project") return Boolean(form.projectTitle && form.researchQuestion && form.prospectiveClaim && form.population && form.outputUse);
+  if (step === "project") return Boolean(form.projectTitle && form.researchGoal && form.researchQuestion && form.population && form.outputUse);
   if (step === "sources") return Boolean(form.sourceFormat && form.sourceAccess && form.corpusScale && form.language && form.historicalVariation && form.provenanceStatus && form.traceability);
   if (step === "chain") return form.operations.length > 0 && Boolean(form.contextNeed);
   if (step === "evidence") {
@@ -484,13 +488,14 @@ function reviewSections(form: FormState) {
   return [
     {
       id: "project" as StepId,
-      label: "Research claim",
+      label: "Research goal",
       complete: getStepComplete("project", form),
       answers: [
         ["Working title", form.projectTitle || "Not described"],
+        ["Goal", form.researchGoal || "Not described"],
         ["Question", form.researchQuestion || "Not described"],
-        ["Possible claim", form.prospectiveClaim || "Not described"],
-        ["Population", form.population || "Not described"],
+        ["Possible contribution or conclusion", form.prospectiveClaim || "Open / not yet known"],
+        ["Research concerns", form.population || "Not described"],
         ["Intended use", outputUseLabel(form.outputUse)],
       ],
     },
@@ -522,7 +527,7 @@ function reviewSections(form: FormState) {
       label: "Influence and validation",
       complete: getStepComplete("evidence", form),
       answers: [
-        ["Influence on claim", claimDependenceLabel(form.claimDependence)],
+        ["Influence on conclusions", claimDependenceLabel(form.claimDependence)],
         ["Answer type", answerTypeLabel(form.constructMode)],
         ["Validated examples", labelsAvailableLabel(form.labelsAvailable)],
         ["Coding guide", codebookStatusLabel(form.codebookStatus)],
@@ -770,7 +775,7 @@ function deriveValidationPlan(form: FormState): ValidationPlan {
   if (!form.operations.length || !form.claimDependence || !form.downstreamUse) {
     return {
       burden: "Not yet determined",
-      influence: "Complete the research tasks, claim influence and downstream-use questions.",
+      influence: "Complete the research tasks, conclusion-influence and downstream-use questions.",
       summary: "The advisor cannot derive a project-specific validation contract until it knows what the model may change and how those outputs will enter the research result.",
       useBoundary: "No validation-based use recommendation yet.",
       reasons,
@@ -787,7 +792,7 @@ function deriveValidationPlan(form: FormState): ValidationPlan {
         ? "Reviewed contribution — model outputs enter part of the analysis after checking"
         : effectiveInfluence === 4
           ? "Research measurement — model-derived records shape reported patterns"
-          : "Claim shaping — model-derived measurements or interpretations materially support the argument";
+          : "Conclusion shaping — model-derived measurements or interpretations materially support the argument";
 
   strategies.push({
     id: "foundation",
@@ -862,7 +867,7 @@ function deriveValidationPlan(form: FormState): ValidationPlan {
       title: form.downstreamUse === "statistical" ? "Correct or bound measurement error in downstream inference" : "Stress-test counts, comparisons and trends",
       status: "Conditional practice",
       rationale: "Item-level accuracy does not guarantee unbiased aggregate results. Uneven errors may change the direction or size of the substantive finding.",
-      actions: ["Recalculate the intended result with human reference labels and model outputs.", "Test plausible worst-case and stratum-specific errors.", form.downstreamUse === "statistical" ? "Use a probability-sampled human validation set and an appropriate design-based or measurement-error correction." : "Narrow the claim when the reported pattern is fragile to remaining errors."],
+      actions: ["Recalculate the intended result with human reference labels and model outputs.", "Test plausible worst-case and stratum-specific errors.", form.downstreamUse === "statistical" ? "Use a probability-sampled human validation set and an appropriate design-based or measurement-error correction." : "Narrow the conclusion when the reported pattern is fragile to remaining errors."],
       limitation: "F1, inter-coder agreement or cross-model consensus alone cannot guarantee unbiased estimates or valid confidence intervals.",
       references: [{ label: "Egami et al. — valid downstream inference", url: "https://arxiv.org/abs/2306.04746" }, { label: "Knox, Lucas & Cho — learned proxies", url: "https://doi.org/10.1146/annurev-polisci-051120-111443" }],
     });
@@ -924,16 +929,16 @@ function deriveValidationPlan(form: FormState): ValidationPlan {
     : form.downstreamUse === "records"
       ? "Potentially suitable for producing reviewed records after the relevant component tests pass."
       : form.downstreamUse === "descriptive"
-        ? "Not suitable for reporting counts or trends until component errors and claim sensitivity are measured."
+        ? "Not suitable for reporting counts or trends until component errors and conclusion sensitivity are measured."
         : form.downstreamUse === "statistical"
           ? "Not suitable for statistical inference until a probability-sampled human validation design and downstream correction are specified."
           : "Interpretive use must remain researcher-led, source-traceable and explicitly tested for anchoring and alternative readings.";
 
   const coding = has("annotation") || has("screening");
-  if (coding && effectiveInfluence >= 4 && (form.codebookStatus !== "stable" || form.labelsAvailable === "none")) useBoundary = "Exploratory use only: the coding instrument or human reference evidence is not ready for claim-supporting measurement.";
-  if (form.reviewCoverage === "none" && effectiveInfluence >= 3) useBoundary = "Do not permit claim-supporting use while consequential outputs enter the analysis without independent review.";
-  if (form.traceability === "weak" && effectiveInfluence >= 3) useBoundary = "Do not permit claim-supporting use until outputs can be traced reliably to the source evidence.";
-  if (form.reviewCapacity === "limited" && effectiveInfluence >= 4) useBoundary = "Reduce model influence, narrow the claim or increase independent checking capacity before model-derived outputs support reported patterns or interpretations.";
+  if (coding && effectiveInfluence >= 4 && (form.codebookStatus !== "stable" || form.labelsAvailable === "none")) useBoundary = "Exploratory use only: the coding instrument or human reference evidence is not ready to support research conclusions.";
+  if (form.reviewCoverage === "none" && effectiveInfluence >= 3) useBoundary = "Do not permit conclusion-supporting use while consequential outputs enter the analysis without independent review.";
+  if (form.traceability === "weak" && effectiveInfluence >= 3) useBoundary = "Do not permit conclusion-supporting use until outputs can be traced reliably to the source evidence.";
+  if (form.reviewCapacity === "limited" && effectiveInfluence >= 4) useBoundary = "Reduce model influence, narrow the conclusion or increase independent checking capacity before model-derived outputs support reported patterns or interpretations.";
 
   return {
     burden,
@@ -1023,9 +1028,10 @@ Status: planning_suggestion_only
 ## Project
 
 - Title: ${form.projectTitle || "Undecided"}
+- Research goal: ${form.researchGoal || "Undecided"}
 - Question: ${form.researchQuestion || "Undecided"}
-- Prospective claim: ${form.prospectiveClaim || "Undecided"}
-- Target population: ${form.population || "Undecided"}
+- Possible contribution or conclusion: ${form.prospectiveClaim || "Open / not yet known"}
+- People, texts, institutions, places, periods or events concerned: ${form.population || "Undecided"}
 - Intended use: ${outputUseLabel(form.outputUse)}
 - Source material: ${sourceFormatLabel(form.sourceFormat)}
 - Source access: ${sourceAccessLabel(form.sourceAccess)}
@@ -1036,7 +1042,7 @@ Status: planning_suggestion_only
 - Evidence traceability: ${traceabilityLabel(form.traceability)}
 - Tasks: ${form.operations.map(operationLabel).join(" → ") || "Undecided"}
 - Context normally needed: ${contextNeedLabel(form.contextNeed)}
-- Claim dependence: ${claimDependenceLabel(form.claimDependence)}
+- Influence on conclusions: ${claimDependenceLabel(form.claimDependence)}
 - Validated examples: ${labelsAvailableLabel(form.labelsAvailable)}
 - Coding guide: ${codebookStatusLabel(form.codebookStatus)}
 - Coding-guide contents: ${form.codebookStatus === "none" ? "Not applicable until a guide is developed" : codebookContentLabel(form.codebookContent)}
@@ -1161,7 +1167,7 @@ export default function Home() {
   const saveDraft = () => { window.localStorage.setItem("llm-methods-compass-draft-v1", JSON.stringify(form)); setSavedAt(new Date().toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" })); setNotice("Saved on this device"); };
   const loadExemplar = () => { setForm(exemplarState); setSavedAt(""); setNotice("Example project loaded"); setActiveStep("project"); setView("workspace"); };
   const resetQuestionnaire = () => { window.localStorage.removeItem("llm-methods-compass-draft-v1"); window.localStorage.removeItem("method-chain-draft-v6"); setForm(blankState); setSavedAt(""); setNotice("Blank questionnaire ready"); setActiveStep("project"); setView("workspace"); };
-  const exportJson = () => downloadFile("llm-methods-compass-advisory.json", JSON.stringify({ schema_version: "0.5", generated_at: new Date().toISOString(), recommendation_status: "planning_suggestion_only", registry_snapshot: MODEL_REGISTRY.snapshotDate, model_discovery_snapshot: MODEL_DISCOVERY, literature_discovery_snapshot: LITERATURE_DISCOVERY, literature_review_log: LITERATURE_REVIEW, curated_literature_reviewed: LITERATURE_REVIEW_DATE, project: form, methodological_routes: methodRoutes, validation_plan: validationPlan, codebook_advice: codebookAdvice, candidates: candidates.map((candidate) => ({ ...candidate, evidence_needed: candidateTest(candidate, form) })), prompt_plan: promptPlan, resource_pilot: resources, prohibited_action: "No corpus, model, or HPC execution by dashboard" }, null, 2), "application/json");
+  const exportJson = () => downloadFile("llm-methods-compass-advisory.json", JSON.stringify({ schema_version: "0.6", generated_at: new Date().toISOString(), recommendation_status: "planning_suggestion_only", registry_snapshot: MODEL_REGISTRY.snapshotDate, model_discovery_snapshot: MODEL_DISCOVERY, literature_discovery_snapshot: LITERATURE_DISCOVERY, literature_review_log: LITERATURE_REVIEW, curated_literature_reviewed: LITERATURE_REVIEW_DATE, project: form, methodological_routes: methodRoutes, validation_plan: validationPlan, codebook_advice: codebookAdvice, candidates: candidates.map((candidate) => ({ ...candidate, evidence_needed: candidateTest(candidate, form) })), prompt_plan: promptPlan, resource_pilot: resources, prohibited_action: "No corpus, model, or HPC execution by dashboard" }, null, 2), "application/json");
   const exportMarkdown = () => downloadFile("llm-methods-compass-advisory.md", markdownReport(form, candidates, methodRoutes, validationPlan, codebookAdvice, promptPlan, resources), "text/markdown");
   const nextStep = () => { const current = steps.findIndex((step) => step.id === activeStep); if (current < steps.length - 1) setActiveStep(steps[current + 1].id); else setView("review"); };
   const previousStep = () => { const current = steps.findIndex((step) => step.id === activeStep); if (current > 0) setActiveStep(steps[current - 1].id); };
@@ -1206,11 +1212,12 @@ export default function Home() {
               <section className="form-panel">
                 {activeStep === "project" ? (
                   <div className="form-section">
-                    <div className="section-callout"><span>Why this matters</span><p>Your question and possible final claim determine what the system must do and how carefully it must be checked.</p></div>
+                    <div className="section-callout"><span>Why this matters</span><p>Your research goal and question determine what the system may help with. A possible conclusion is useful when already known, but it is not required for exploratory or interpretive research.</p></div>
                     <label><FieldLabel>Working title</FieldLabel><input value={form.projectTitle} onChange={(event) => update("projectTitle", event.target.value)} placeholder="Give this methodological case a clear name" /></label>
+                    <label><FieldLabel>Research goal</FieldLabel><textarea rows={4} value={form.researchGoal} onChange={(event) => update("researchGoal", event.target.value)} placeholder="What do you want to understand, explore, describe, compare or explain?" /></label>
                     <label><FieldLabel>Research question</FieldLabel><textarea rows={4} value={form.researchQuestion} onChange={(event) => update("researchQuestion", event.target.value)} placeholder="State the historical or social-scientific question, without choosing a model yet" /></label>
-                    <label><FieldLabel help="claim">Possible final claim</FieldLabel><textarea rows={4} value={form.prospectiveClaim} onChange={(event) => update("prospectiveClaim", event.target.value)} placeholder="What is the strongest statement the project may eventually support?" /></label>
-                    <label><FieldLabel help="population">What is the claim about?</FieldLabel><textarea rows={3} value={form.population} onChange={(event) => update("population", event.target.value)} placeholder="Which people, texts, institutions, places, periods or events does it concern?" /></label>
+                    <label><FieldLabel help="claim">Expected contribution or possible conclusion <span className="optional-label">optional</span></FieldLabel><textarea rows={4} value={form.prospectiveClaim} onChange={(event) => update("prospectiveClaim", event.target.value)} placeholder="If already known, what kind of contribution or conclusion might the research support?" /></label>
+                    <label><FieldLabel help="population">Who or what does the research concern?</FieldLabel><textarea rows={3} value={form.population} onChange={(event) => update("population", event.target.value)} placeholder="Which people, texts, institutions, places, periods or events does it concern?" /></label>
                     <div className="segmented-field"><FieldLabel>How will the result be used?</FieldLabel><div className="segmented-options">{(["exploration", "publication", "shared", "teaching"] as const).map((value) => <button key={value} className={form.outputUse === value ? "selected" : ""} onClick={() => update("outputUse", value)}>{value === "shared" ? "Shared dataset" : value}</button>)}</div></div>
                   </div>
                 ) : null}
@@ -1243,7 +1250,7 @@ export default function Home() {
                 {activeStep === "evidence" ? (
                   <div className="form-section">
                     <div className="section-callout"><span>Why this matters</span><p>Validation follows what the model can change: the evidence a researcher sees, the records produced, the patterns reported or the interpretation advanced. One general accuracy score is not enough.</p></div>
-                    <label><FieldLabel help="dependence">How directly may model output shape the final claim?</FieldLabel><select value={form.claimDependence} onChange={(event) => update("claimDependence", event.target.value as FormState["claimDependence"])}><option value="">Choose a level…</option><option value="1">1 — support only; output does not enter the evidence</option><option value="2">2 — affects what is considered or read</option><option value="3">3 — reviewed outputs enter part of the analysis</option><option value="4">4 — model-derived measurements shape findings</option><option value="5">5 — model-derived analysis is central to the claim</option></select></label>
+                    <label><FieldLabel help="dependence">How strongly could model-generated results affect the project’s conclusions?</FieldLabel><select value={form.claimDependence} onChange={(event) => update("claimDependence", event.target.value as FormState["claimDependence"])}><option value="">Choose a level…</option><option value="1">1 — support only; output does not enter the evidence</option><option value="2">2 — affects what is considered or read</option><option value="3">3 — reviewed outputs enter part of the analysis</option><option value="4">4 — model-derived measurements shape findings</option><option value="5">5 — model-derived analysis is central to the conclusions</option></select></label>
                     <div className="field-grid two">
                       <label><FieldLabel help="downstream">What is the furthest point model output will reach?</FieldLabel><select value={form.downstreamUse} onChange={(event) => update("downstreamUse", event.target.value as FormState["downstreamUse"])}><option value="">Choose a downstream use…</option><option value="reading">Candidate material for human reading</option><option value="records">Coded records or a structured dataset</option><option value="descriptive">Counts, comparisons or trends</option><option value="statistical">Statistical or causal analysis</option><option value="interpretive">Interpretation or the central argument</option></select></label>
                       <label><FieldLabel help="reviewCoverage">Which outputs will be independently checked?</FieldLabel><select value={form.reviewCoverage} onChange={(event) => update("reviewCoverage", event.target.value as FormState["reviewCoverage"])}><option value="">Choose review coverage…</option><option value="all_independent">Every consequential output</option><option value="sample_uncertain">A representative sample plus uncertain cases</option><option value="uncertain_only">Only outputs flagged as uncertain</option><option value="none">No independent output review planned</option></select></label>
@@ -1288,9 +1295,9 @@ export default function Home() {
 
               <aside className="live-panel">
                 <div className="live-panel-header"><div><p className="eyebrow">Current answers</p><h2>Emerging route</h2></div><StatusPill tone="warn">Not tested</StatusPill></div>
-                <dl className="profile-list"><div><dt>Tasks</dt><dd>{form.operations.length ? form.operations.map(operationLabel).join(" · ") : "Not chosen"}</dd></div><div><dt>Source link</dt><dd>{traceabilityLabel(form.traceability)}</dd></div><div><dt>Importance to claim</dt><dd>{claimDependenceLabel(form.claimDependence)}</dd></div><div><dt>Furthest use</dt><dd>{downstreamUseLabel(form.downstreamUse)}</dd></div><div><dt>Validation burden</dt><dd>{validationPlan.burden}</dd></div><div><dt>Answer type</dt><dd>{answerTypeLabel(form.constructMode)}</dd></div><div><dt>Runs on</dt><dd>{productionLabel(form.production)} · {hardwareLabel(form.hardware)}</dd></div></dl>
+                <dl className="profile-list"><div><dt>Tasks</dt><dd>{form.operations.length ? form.operations.map(operationLabel).join(" · ") : "Not chosen"}</dd></div><div><dt>Source link</dt><dd>{traceabilityLabel(form.traceability)}</dd></div><div><dt>Influence on conclusions</dt><dd>{claimDependenceLabel(form.claimDependence)}</dd></div><div><dt>Furthest use</dt><dd>{downstreamUseLabel(form.downstreamUse)}</dd></div><div><dt>Validation burden</dt><dd>{validationPlan.burden}</dd></div><div><dt>Answer type</dt><dd>{answerTypeLabel(form.constructMode)}</dd></div><div><dt>Runs on</dt><dd>{productionLabel(form.production)} · {hardwareLabel(form.hardware)}</dd></div></dl>
                 <div className="route-recommendation"><span className="micro-label">Possible workflow</span><strong>{architectureTitle(form)}</strong><p>{candidates.length} options currently need comparison. Nothing is recommended for full use before testing.</p></div>
-                <div className="mini-gates"><div><span>Research question</span><b className={getStepComplete("project", form) ? "done" : "open"}>{getStepComplete("project", form) ? "described" : "open"}</b></div><div><span>Sources</span><b className={getStepComplete("sources", form) ? "done" : "open"}>{getStepComplete("sources", form) ? "described" : "open"}</b></div><div><span>Test results</span><b className="open">not measured</b></div><div><span>Local hardware details</span><b className="open">check</b></div></div>
+                <div className="mini-gates"><div><span>Research goal</span><b className={getStepComplete("project", form) ? "done" : "open"}>{getStepComplete("project", form) ? "described" : "open"}</b></div><div><span>Sources</span><b className={getStepComplete("sources", form) ? "done" : "open"}>{getStepComplete("sources", form) ? "described" : "open"}</b></div><div><span>Test results</span><b className="open">not measured</b></div><div><span>Local hardware details</span><b className="open">check</b></div></div>
                 <button className="full-link" onClick={() => setView("recommendation")}>Open full advice <span>→</span></button>
               </aside>
             </div>
@@ -1310,20 +1317,20 @@ export default function Home() {
 
         {view === "map" ? (
           <div className="content map-view">
-            <section className="page-intro compact"><div><p className="eyebrow">How the advice is made</p><h1>From research question to a careful recommendation</h1><p className="intro-copy">Each stage depends on the one before it. A good model cannot repair missing sources, unreadable scans or relevant passages that were never found.</p></div><StatusPill tone="neutral">Method version 1.22</StatusPill></section>
+            <section className="page-intro compact"><div><p className="eyebrow">How the advice is made</p><h1>From research goal to a careful recommendation</h1><p className="intro-copy">Each stage depends on the one before it. A good model cannot repair missing sources, unreadable scans or relevant passages that were never found.</p></div><StatusPill tone="neutral">Method version 1.23</StatusPill></section>
             <section className="decision-canvas">
-              <div className="map-lane-label">Understand the project</div><div className="decision-row"><div className="decision-node"><span>01</span><strong>Question and scope</strong><p>What should the evidence support?</p></div><i aria-hidden="true">→</i><div className="decision-node"><span>02</span><strong>Check the sources</strong><p>What is missing, altered or hard to read?</p></div><i aria-hidden="true">→</i><div className="decision-node"><span>03</span><strong>Split the work into tasks</strong><p>What must be found, labelled or extracted?</p></div></div>
+              <div className="map-lane-label">Understand the project</div><div className="decision-row"><div className="decision-node"><span>01</span><strong>Goal, question and scope</strong><p>What does the research seek to understand?</p></div><i aria-hidden="true">→</i><div className="decision-node"><span>02</span><strong>Check the sources</strong><p>What is missing, altered or hard to read?</p></div><i aria-hidden="true">→</i><div className="decision-node"><span>03</span><strong>Split the work into tasks</strong><p>What must be found, labelled or extracted?</p></div></div>
               <div className="map-drop" aria-hidden="true">↓</div><div className="map-lane-label">Design the validation</div><div className="decision-row"><div className="decision-node"><span>04</span><strong>Profile model influence</strong><p>What can the model hide, measure or reinterpret?</p></div><i aria-hidden="true">→</i><div className="decision-node"><span>05</span><strong>Create reference evidence</strong><p>Which human and source checks fit each task?</p></div><i aria-hidden="true">→</i><div className="decision-node"><span>06</span><strong>Choose methods and resources</strong><p>Compare credible baselines, models and computing</p></div></div>
-              <div className="map-drop" aria-hidden="true">↓</div><div className="map-lane-label">Test the chain and claim</div><div className="decision-row"><div className="decision-node"><span>07</span><strong>Test on unseen examples</strong><p>Check errors across periods, sources and groups</p></div><i aria-hidden="true">→</i><div className="decision-node"><span>08</span><strong>Stress-test the result</strong><p>Would plausible errors change the finding?</p></div><i aria-hidden="true">→</i><div className="decision-node outcome"><span>09</span><strong>Give advice with limits</strong><p>Authorize one use, restrict it, or reject it</p></div></div>
+              <div className="map-drop" aria-hidden="true">↓</div><div className="map-lane-label">Test the chain and result</div><div className="decision-row"><div className="decision-node"><span>07</span><strong>Test on unseen examples</strong><p>Check errors across periods, sources and groups</p></div><i aria-hidden="true">→</i><div className="decision-node"><span>08</span><strong>Stress-test the result</strong><p>Would plausible errors change the finding?</p></div><i aria-hidden="true">→</i><div className="decision-node outcome"><span>09</span><strong>Give advice with limits</strong><p>Authorize one use, restrict it, or reject it</p></div></div>
             </section>
-            <section className="map-legend-grid"><div className="method-card"><span className="method-index">A</span><div><strong>Must-have conditions</strong><p>A model is excluded if its licence, data handling, hardware needs or exact version cannot meet the project’s rules.</p></div></div><div className="method-card"><span className="method-index">B</span><div><strong>Minimum quality</strong><p>Every important task, category, period and source group must meet a quality level chosen in advance.</p></div></div><div className="method-card"><span className="method-index">C</span><div><strong>Use no more than needed</strong><p>Among methods that work well enough, prefer the one requiring less computing and human correction.</p></div></div><div className="method-card"><span className="method-index">D</span><div><strong>Researcher responsibility</strong><p>Source criticism, interpretation and the final scholarly claim remain with the researcher.</p></div></div></section>
+            <section className="map-legend-grid"><div className="method-card"><span className="method-index">A</span><div><strong>Must-have conditions</strong><p>A model is excluded if its licence, data handling, hardware needs or exact version cannot meet the project’s rules.</p></div></div><div className="method-card"><span className="method-index">B</span><div><strong>Minimum quality</strong><p>Every important task, category, period and source group must meet a quality level chosen in advance.</p></div></div><div className="method-card"><span className="method-index">C</span><div><strong>Use no more than needed</strong><p>Among methods that work well enough, prefer the one requiring less computing and human correction.</p></div></div><div className="method-card"><span className="method-index">D</span><div><strong>Researcher responsibility</strong><p>Source criticism, interpretation and the final scholarly conclusions remain with the researcher.</p></div></div></section>
           </div>
         ) : null}
 
         {view === "recommendation" ? (
           <div className="content recommendation-view">
-            <section className="recommendation-hero"><div><p className="eyebrow">Advice based on your current answers</p><h1>{form.projectTitle || "Untitled research project"}</h1><p>{form.researchQuestion || "Complete the research question to place this advice in context."}</p></div><div className="recommendation-status"><StatusPill tone="warn">Planning advice only</StatusPill><span>{allCoreComplete ? "Project described · testing still needed" : "Questionnaire incomplete"}</span></div></section>
-            <section className="recommendation-summary"><div className="summary-main"><span className="micro-label">Suggested research workflow</span><h2>{architectureTitle(form)}</h2><p>Start with the simplest credible method. Add a language model only when it offers useful evidence that the simpler method misses, then test the full setup on unseen material.</p></div><div className="summary-stat"><span>Options to test</span><strong>{candidates.length}</strong><small>not yet approved for full use</small></div><div className="summary-stat"><span>Validation burden</span><strong>{validationPlan.burden}</strong><small>{form.claimDependence ? `claim influence ${form.claimDependence}/5` : "influence not chosen"}</small></div><div className="summary-stat"><span>Where models may run</span><strong>{productionLabel(form.production)}</strong><small>open-weight models only</small></div></section>
+            <section className="recommendation-hero"><div><p className="eyebrow">Advice based on your current answers</p><h1>{form.projectTitle || "Untitled research project"}</h1><p>{form.researchGoal || form.researchQuestion || "Complete the research goal to place this advice in context."}</p></div><div className="recommendation-status"><StatusPill tone="warn">Planning advice only</StatusPill><span>{allCoreComplete ? "Project described · testing still needed" : "Questionnaire incomplete"}</span></div></section>
+            <section className="recommendation-summary"><div className="summary-main"><span className="micro-label">Suggested research workflow</span><h2>{architectureTitle(form)}</h2><p>Start with the simplest credible method. Add a language model only when it offers useful evidence that the simpler method misses, then test the full setup on unseen material.</p></div><div className="summary-stat"><span>Options to test</span><strong>{candidates.length}</strong><small>not yet approved for full use</small></div><div className="summary-stat"><span>Validation burden</span><strong>{validationPlan.burden}</strong><small>{form.claimDependence ? `conclusion influence ${form.claimDependence}/5` : "influence not chosen"}</small></div><div className="summary-stat"><span>Where models may run</span><strong>{productionLabel(form.production)}</strong><small>open-weight models only</small></div></section>
             <section className="method-rationale"><div className="section-title-row"><div><p className="eyebrow">Reasoning behind the advice</p><h2>Why these routes are suggested</h2></div><StatusPill tone="good">Sources linked</StatusPill></div>{methodRoutes.length ? <div className="route-list">{methodRoutes.map((route, index) => <article className="route-card" key={route.id}><div className="route-card-index">{String(index + 1).padStart(2, "0")}</div><div><span className="micro-label">{route.task}</span><h3>{route.recommendation}</h3><p>{route.reason}</p><details><summary>Required test, limits and academic basis <span aria-hidden="true">+</span></summary><div className="route-detail"><strong>What must be shown</strong><ol>{route.tests.map((item) => <li key={item}>{item}</li>)}</ol><p><strong>Limit:</strong> {route.caution}</p><div className="route-sources">{route.references.map((reference) => <a href={reference.url} target="_blank" rel="noreferrer" key={reference.url}>{reference.label}</a>)}</div></div></details></div></article>)}</div> : <div className="empty-candidate-state"><strong>No methodological route yet</strong><p>Choose at least one research task. The explanation will then change with the task, source format, coding rules, human examples and intended use.</p></div>}</section>
             <section className="validation-contract">
               <div className="section-title-row"><div><p className="eyebrow">Project-conditioned validation</p><h2>What must be validated—and why</h2><p>The contract follows how model output enters this research chain. It does not certify a model in general.</p></div><StatusPill tone={validationPlan.burden === "Critical" || validationPlan.burden === "High" ? "warn" : "neutral"}>{validationPlan.burden} burden</StatusPill></div>
@@ -1372,7 +1379,7 @@ export default function Home() {
           <div className="content evidence-view">
             <section className="page-intro compact"><div><p className="eyebrow">Terms and supporting research</p><h1>Why the advisor asks these questions</h1><p className="intro-copy">This page explains the main rules in ordinary language and links them to academic sources. A model description or popularity score is never treated as proof that it will work for your project.</p></div><StatusPill tone="good">Sources linked</StatusPill></section>
             <div className="evidence-layout"><section className="evidence-main">
-              <article className="evidence-block"><span>01</span><div><h2>Define what you are measuring first</h2><p>A label is a research decision, not a fact produced automatically by a model. State the intended claim and what should count as a correct or defensible answer before choosing software.</p><div className="source-tags"><a href="https://doi.org/10.1093/pan/mps028" target="_blank" rel="noreferrer">Grimmer & Stewart</a><a href="https://doi.org/10.1145/3442188.3445901" target="_blank" rel="noreferrer">Jacobs & Wallach</a><a href="https://doi.org/10.1017/S0003055401003100" target="_blank" rel="noreferrer">Adcock & Collier</a><a href="https://doi.org/10.1007/s41111-026-00351-4" target="_blank" rel="noreferrer">Bao — LLMs as candidate measures</a></div></div></article>
+              <article className="evidence-block"><span>01</span><div><h2>Define the research purpose and what is being measured</h2><p>Begin with the research goal. A label is a research decision, not a fact produced automatically by a model. If a possible conclusion is already known, state it; otherwise record how model output could affect the conclusions that emerge.</p><div className="source-tags"><a href="https://doi.org/10.1093/pan/mps028" target="_blank" rel="noreferrer">Grimmer & Stewart</a><a href="https://doi.org/10.1145/3442188.3445901" target="_blank" rel="noreferrer">Jacobs & Wallach</a><a href="https://doi.org/10.1017/S0003055401003100" target="_blank" rel="noreferrer">Adcock & Collier</a><a href="https://doi.org/10.1007/s41111-026-00351-4" target="_blank" rel="noreferrer">Bao — LLMs as candidate measures</a></div></div></article>
               <article className="evidence-block"><span>02</span><div><h2>Test passage finding separately</h2><p>A later model cannot analyse a relevant passage that the search stage failed to find. Check how much relevant material is found, how much a person must review and whether some periods or sources are missed.</p><div className="source-tags"><a href="https://doi.org/10.1145/3166.3197" target="_blank" rel="noreferrer">Blair & Maron</a><a href="https://doi.org/10.1145/2063576.2063654" target="_blank" rel="noreferrer">Grossman & Cormack</a></div></div></article>
               <article className="evidence-block"><span>03</span><div><h2>Treat model instructions as part of the method</h2><p>Wording, examples, order, assigned role and output format can change results. More theory or a more elaborate persona does not necessarily improve coding. Save the exact instructions and compare small, meaningful variants on the project’s material.</p><div className="source-tags"><a href="https://doi.org/10.1145/3560815" target="_blank" rel="noreferrer">Prompting survey</a><a href="https://doi.org/10.18653/v1/2022.acl-long.556" target="_blank" rel="noreferrer">Prompt order</a><a href="https://doi.org/10.1177/00491241251339188" target="_blank" rel="noreferrer">Than et al. — qualitative coding</a><a href="https://doi.org/10.18653/v1/2026.latechclfl-1.27" target="_blank" rel="noreferrer">Pichler & Pagel — theory prompts</a><a href="https://doi.org/10.18653/v1/2024.findings-emnlp.888" target="_blank" rel="noreferrer">Zheng et al. — persona effects</a></div></div></article>
               <article className="evidence-block"><span>04</span><div><h2>Check what “open” really means</h2><p>Downloadable model files, permission to use them, available software, information about training data and the ability to reproduce a result are separate questions.</p><div className="source-tags"><a href="https://opensource.org/ai/open-source-ai-definition" target="_blank" rel="noreferrer">Open Source AI Definition</a><a href="https://doi.org/10.1145/3630106.3659005" target="_blank" rel="noreferrer">Open-washing study</a></div></div></article>
@@ -1382,7 +1389,7 @@ export default function Home() {
               <article className="evidence-block"><span>08</span><div><h2>Validate the research use, not a model in general</h2><p>The required evidence changes when model output moves from suggesting passages to producing records, measurements, statistical variables or interpretations. High labelling accuracy does not by itself guarantee an unbiased historical trend or valid confidence interval.</p><div className="source-tags"><a href="https://arxiv.org/abs/2306.04746" target="_blank" rel="noreferrer">Egami et al.</a><a href="https://doi.org/10.1146/annurev-polisci-051120-111443" target="_blank" rel="noreferrer">Knox, Lucas & Cho</a><a href="https://arxiv.org/abs/2607.07915" target="_blank" rel="noreferrer">Desai, Card & Jacobs — emerging norms preprint</a></div></div></article>
               <article className="evidence-block"><span>09</span><div><h2>Treat another LLM as a cross-check, not a gold standard</h2><p>Different models can expose unstable cases, suggest objections or expand a retrieval pool. Their agreement is only evidence about robustness to model choice: shared training data and judge biases can produce shared errors.</p><div className="source-tags"><a href="https://papers.neurips.cc/paper_files/paper/2023/hash/91f18a1287b398d378ef22505bf41832-Abstract-Datasets_and_Benchmarks.html" target="_blank" rel="noreferrer">Zheng et al.</a><a href="https://doi.org/10.1162/coli_a_00502" target="_blank" rel="noreferrer">Ziems et al.</a></div></div></article>
               <article className="evidence-block"><span>10</span><div><h2>Use a model devil’s advocate only after the researcher interprets</h2><p>A model can experimentally generate counterarguments to a completed researcher memo. Preserve the original reading, treat each objection as a generated artifact and verify it manually against the source. This is not testimony, member checking or independent validation.</p><div className="source-tags"><a href="https://doi.org/10.1037/qup0000374" target="_blank" rel="noreferrer">Gillespie — provoking interpretation</a></div></div></article>
-              <article className="validation-matrix-panel"><div className="validation-matrix-heading"><p className="eyebrow">Validation strategy matrix</p><h2>Match the test to what the LLM does</h2><p>These are starting requirements. The Advice view combines them with the project’s claim, review coverage and downstream use.</p></div><div className="validation-table-wrap"><table><thead><tr><th>Operation</th><th>Main risk</th><th>Core evidence</th><th>Cross-model role</th></tr></thead><tbody><tr><th>Source conversion</th><td>Evidence is altered, lost or reordered</td><td>Compare sampled outputs with original pages across source-quality groups</td><td>Find disagreements for page inspection only</td></tr><tr><th>Retrieval</th><td>Relevant evidence remains invisible</td><td>Human relevance judgments, recall, precision and false-negative analysis</td><td>Combine candidate pools when misses are costly</td></tr><tr><th>Coding</th><td>Construct or category errors enter the dataset</td><td>Frozen guide, independent human reference, per-code and stratum errors</td><td>Blind recoding to locate model-sensitive cases</td></tr><tr><th>Extraction</th><td>Fields are unsupported, missing or wrongly bounded</td><td>Field and exact-source-span verification</td><td>Use discrepancies to prioritize source checks</td></tr><tr><th>Aggregation</th><td>Item errors bias trends or estimates</td><td>Claim sensitivity and, where needed, design-based correction</td><td>Competing imperfect proxies—not a human-label substitute</td></tr><tr><th>Interpretation</th><td>Anchoring, anachronism or flattened ambiguity</td><td>Researcher-first reading, traceability, counterevidence and rival readings</td><td>Generate source-linked alternatives rather than vote for truth</td></tr></tbody></table></div></article>
+              <article className="validation-matrix-panel"><div className="validation-matrix-heading"><p className="eyebrow">Validation strategy matrix</p><h2>Match the test to what the LLM does</h2><p>These are starting requirements. The Advice view combines them with the research goal, possible influence on conclusions, review coverage and downstream use.</p></div><div className="validation-table-wrap"><table><thead><tr><th>Operation</th><th>Main risk</th><th>Core evidence</th><th>Cross-model role</th></tr></thead><tbody><tr><th>Source conversion</th><td>Evidence is altered, lost or reordered</td><td>Compare sampled outputs with original pages across source-quality groups</td><td>Find disagreements for page inspection only</td></tr><tr><th>Retrieval</th><td>Relevant evidence remains invisible</td><td>Human relevance judgments, recall, precision and false-negative analysis</td><td>Combine candidate pools when misses are costly</td></tr><tr><th>Coding</th><td>Construct or category errors enter the dataset</td><td>Frozen guide, independent human reference, per-code and stratum errors</td><td>Blind recoding to locate model-sensitive cases</td></tr><tr><th>Extraction</th><td>Fields are unsupported, missing or wrongly bounded</td><td>Field and exact-source-span verification</td><td>Use discrepancies to prioritize source checks</td></tr><tr><th>Aggregation</th><td>Item errors bias trends or estimates</td><td>Conclusion sensitivity and, where needed, design-based correction</td><td>Competing imperfect proxies—not a human-label substitute</td></tr><tr><th>Interpretation</th><td>Anchoring, anachronism or flattened ambiguity</td><td>Researcher-first reading, traceability, counterevidence and rival readings</td><td>Generate source-linked alternatives rather than vote for truth</td></tr></tbody></table></div></article>
               <article className="coverage-panel"><div className="validation-matrix-heading"><p className="eyebrow">Method coverage</p><h2>How the QMD enters the advisor</h2><p>Every major methodological module is either asked from the researcher, derived by a visible rule, or flagged for verification outside this advisory site.</p></div><div className="coverage-list">{METHOD_COVERAGE.map((item) => <div key={item.module}><span>Module {item.module}</span><p>{item.concern}</p><strong>{item.treatment}</strong></div>)}</div></article>
               <article className="reference-library"><div className="validation-matrix-heading"><p className="eyebrow">Reference library</p><h2>Sources for consultation</h2><p>Curated working literature last appraised {displayDate(LITERATURE_REVIEW_DATE)}. Peer-reviewed work and preprints are labelled separately; the full QMD bibliography remains the comprehensive record. {literatureReviewConfirmed ? "The current appraisal is researcher-confirmed." : "Newly integrated items require researcher confirmation before publication."}</p></div>{[...new Set(RESEARCH_REFERENCES.map((reference) => reference.group))].map((group) => <section key={group}><h3>{group}</h3><ul>{RESEARCH_REFERENCES.filter((reference) => reference.group === group).map((reference) => <li key={reference.url}><a href={reference.url} target="_blank" rel="noreferrer"><strong>{reference.authors} ({reference.year})</strong><span>{reference.title}</span></a><small>{reference.status}</small></li>)}</ul></section>)}</article>
               <article className="literature-watch"><div className="validation-matrix-heading"><p className="eyebrow">Monthly literature check</p><h2>{!literatureReviewCurrent ? "New work awaiting scholarly screening" : literatureReviewConfirmed ? "Current discovery queue reviewed" : "Current discovery queue provisionally appraised"}</h2><p>Discovery updated {displayDate(LITERATURE_DISCOVERY.generatedAt)} from public Crossref metadata. Discovery produces search leads; the separately dated appraisal below determines whether any lead changes the working method.</p></div><div className={`literature-review-status ${literatureReviewCurrent ? "current" : "stale"}`}><div><span>{!literatureReviewCurrent ? "New appraisal required" : literatureReviewConfirmed ? "Researcher-confirmed review current" : "Provisional appraisal current"}</span><strong>{LITERATURE_REVIEW.decisions.length} publications appraised · {displayDate(LITERATURE_REVIEW.reviewedAt)}</strong><small>{literatureReviewConfirmed ? `Confirmed by ${LITERATURE_REVIEW.confirmedBy || "researcher"} · ${displayDate(LITERATURE_REVIEW.confirmedAt || LITERATURE_REVIEW.reviewedAt)}` : "AI-assisted initial review · researcher confirmation required before publication"}</small></div><dl><div><dt>Integrated</dt><dd>{literatureReviewCounts.integrated ?? 0}</dd></div><div><dt>Already covered</dt><dd>{literatureReviewCounts.already_covered ?? 0}</dd></div><div><dt>Background</dt><dd>{literatureReviewCounts.background ?? 0}</dd></div><div><dt>Other</dt><dd>{(literatureReviewCounts.superseded ?? 0) + (literatureReviewCounts.out_of_scope ?? 0)}</dd></div></dl></div><details className="review-decision-log"><summary><span className="info-icon" aria-hidden="true">i</span><span>See every appraisal decision and reason</span><span className="disclosure-mark" aria-hidden="true">+</span></summary><div><p>“Integrated” means the work added a distinct consideration to the working QMD and curated reference library. The other labels preserve relevant, duplicate, superseded and out-of-scope leads without turning them into advisory evidence. The project owner should confirm promoted sources before public methodological claims rely on them.</p><ul>{LITERATURE_REVIEW.decisions.map((decision) => { const candidate = LITERATURE_DISCOVERY.candidates.find((item) => item.id === decision.id); return <li key={decision.id}><div><StatusPill tone={decision.status === "integrated" ? "good" : decision.status === "out_of_scope" ? "warn" : "neutral"}>{literatureDecisionLabel(decision.status)}</StatusPill><strong>{candidate?.title ?? decision.id}</strong></div><p>{decision.reason}</p><small>{decision.affectedModules.length ? `QMD modules considered: ${decision.affectedModules.join(", ")}` : "No QMD module affected"}</small></li>; })}</ul></div></details><details className="watchlist-method"><summary><span className="info-icon" aria-hidden="true">i</span><span>How future discoveries are reviewed</span><span className="disclosure-mark" aria-hidden="true">+</span></summary><p>A researcher reads each plausible item, verifies its publication status and judges its methods, scope, limitations and relevance. Only an explicit, recorded decision can update a public methodological rule or curated reference list.</p></details><ul>{LITERATURE_DISCOVERY.candidates.map((candidate) => <li key={candidate.id}><a href={candidate.url} target="_blank" rel="noreferrer"><strong>{candidate.title}</strong></a><span>{candidate.authors.slice(0, 3).join(", ") || "Authors unavailable"} · {candidate.published || "Date unavailable"} · {candidate.venue}</span></li>)}</ul></article>

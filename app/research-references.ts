@@ -40,7 +40,7 @@ export const RESEARCH_REFERENCES = [
 ] as const;
 
 export const METHOD_COVERAGE = [
-  { module: "1", concern: "Claim, model role, plurality and influence on the conclusion", treatment: "Asked in plain language" },
+  { module: "1", concern: "Research goal, model role, plurality and influence on possible conclusions", treatment: "Goal asked first; possible conclusion optional; influence asked later" },
   { module: "2", concern: "Separate tasks, handoffs and error amplification", treatment: "Asked and derived" },
   { module: "3", concern: "Source format, access, scale, language change, provenance and traceability", treatment: "Asked; source gate" },
   { module: "4", concern: "Word search, meaning search, reranking and relevance screening", treatment: "Derived as separate routes" },

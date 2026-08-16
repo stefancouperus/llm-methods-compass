@@ -23,7 +23,10 @@ test("builds a self-contained GitHub Pages dashboard", async () => {
   assert.match(bundle, /LLM advice for qualitative analysis of textual sources/);
   assert.match(bundle, /does not advise on qualitative analysis of audio, video, photographs or other image content/);
   assert.match(bundle, /Scanned document pages may be considered only to recover or verify their text and layout/);
-  assert.match(bundle, /Research claim/);
+  assert.match(bundle, /Research goal/);
+  assert.match(bundle, /What do you want to understand, explore, describe, compare or explain/);
+  assert.match(bundle, /Expected contribution or possible conclusion/);
+  assert.match(bundle, /How strongly could model-generated results affect the project’s conclusions/);
   assert.match(bundle, /Blank questionnaire ready/);
   assert.match(bundle, /Load example/);
   assert.match(bundle, /Check the information used for your advice/);
@@ -87,6 +90,7 @@ test("keeps execution outside the browser and validates discovery provenance", a
   const formKeys = [...formType.matchAll(/^\s{2}(\w+):/gm)].map((match) => match[1]);
   const answerReview = page.slice(page.indexOf("function reviewSections"), page.indexOf("function deriveCandidates"));
   const markdownExport = page.slice(page.indexOf("function markdownReport"), page.indexOf("function downloadFile"));
+  const projectCompletionGate = page.match(/if \(step === "project"\)[^;]+;/)?.[0] ?? "";
 
   assert.match(page, /No corpus, model, or HPC execution by dashboard/);
   assert.match(page, /planning_suggestion_only/);
@@ -94,15 +98,18 @@ test("keeps execution outside the browser and validates discovery provenance", a
   assert.match(page, /llm-methods-compass-draft-v1/);
   assert.match(page, /Download JSON/);
   assert.match(blankState, /language: ""/);
+  assert.match(blankState, /researchGoal: ""/);
   assert.match(blankState, /operations: \[\]/);
   for (const field of ["outputUse", "sourceFormat", "sourceAccess", "corpusScale", "historicalVariation", "provenanceStatus", "traceability", "contextNeed", "claimDependence", "constructMode", "labelsAvailable", "codebookStatus", "codebookContent", "errorPriority", "humanReview", "reviewCoverage", "reviewCapacity", "downstreamUse", "crossModelStrategy", "production", "openness", "adaptationPolicy", "hardware", "sustainability"]) {
     assert.match(blankState, new RegExp(`${field}: ""`));
   }
-  assert.equal(formKeys.length, 31);
+  assert.equal(formKeys.length, 32);
   for (const field of formKeys) {
     assert.match(answerReview, new RegExp(`form\\.${field}\\b`), `${field} must appear in the pre-advice review`);
     assert.match(markdownExport, new RegExp(`form\\.${field}\\b`), `${field} must appear in the Markdown advisory report`);
   }
+  assert.match(projectCompletionGate, /form\.researchGoal/);
+  assert.doesNotMatch(projectCompletionGate, /form\.prospectiveClaim/);
   assert.match(registry, /Turn scans into reliable text/);
   assert.match(registry, /Count, combine and summarise results/);
   assert.match(registry, /selectionBasis/);
