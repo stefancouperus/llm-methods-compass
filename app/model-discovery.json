@@ -1,6 +1,6 @@
 {
   "schemaVersion": "0.1",
-  "generatedAt": "2026-08-16T06:38:30.867Z",
+  "generatedAt": "2026-09-14T07:56:06.791Z",
   "source": "Hugging Face public Hub API",
   "sourceUrl": "https://huggingface.co/api/models",
   "status": "automated_metadata_watchlist_only",
@@ -28,7 +28,7 @@
           "lastModified",
           "downloads"
         ],
-        "inspected": 171
+        "inspected": 170
       },
       "candidates": [
         {
@@ -39,8 +39,8 @@
           "gated": false,
           "pipelineTag": "feature-extraction",
           "library": "sentence-transformers",
-          "downloads": 8143702,
-          "likes": 1152,
+          "downloads": 8349661,
+          "likes": 1215,
           "baseModel": "Qwen/Qwen3-0.6B-Base",
           "hasSafetensors": true,
           "url": "https://huggingface.co/Qwen/Qwen3-Embedding-0.6B/tree/97b0c614be4d77ee51c0cef4e5f07c00f9eb65b3"
@@ -53,8 +53,8 @@
           "gated": false,
           "pipelineTag": "feature-extraction",
           "library": "transformers",
-          "downloads": 3227499,
-          "likes": 1153,
+          "downloads": 1920250,
+          "likes": 1155,
           "baseModel": null,
           "hasSafetensors": true,
           "url": "https://huggingface.co/jinaai/jina-embeddings-v3/tree/ab036b023d30b4d1138c4c3bfa9f0c445ab455d6"
@@ -67,8 +67,8 @@
           "gated": false,
           "pipelineTag": "feature-extraction",
           "library": "sentence-transformers",
-          "downloads": 4479791,
-          "likes": 75,
+          "downloads": 6356408,
+          "likes": 80,
           "baseModel": null,
           "hasSafetensors": true,
           "url": "https://huggingface.co/ibm-granite/granite-embedding-small-english-r2/tree/2ab6fa8ea2d674564defd37171ae19079b864b33"
@@ -95,7 +95,7 @@
           "lastModified",
           "downloads"
         ],
-        "inspected": 140
+        "inspected": 138
       },
       "candidates": [
         {
@@ -106,8 +106,8 @@
           "gated": false,
           "pipelineTag": "text-classification",
           "library": "sentence-transformers",
-          "downloads": 18939197,
-          "likes": 1136,
+          "downloads": 18013116,
+          "likes": 1192,
           "baseModel": null,
           "hasSafetensors": true,
           "url": "https://huggingface.co/BAAI/bge-reranker-v2-m3/tree/953dc6f6f85a1b2dbfca4c34a2796e7dde08d41e"
@@ -120,7 +120,7 @@
           "gated": false,
           "pipelineTag": "text-classification",
           "library": "transformers",
-          "downloads": 86357,
+          "downloads": 390772,
           "likes": 120,
           "baseModel": "Qwen/Qwen2-VL-2B-Instruct",
           "hasSafetensors": true,
@@ -134,8 +134,8 @@
           "gated": false,
           "pipelineTag": "text-classification",
           "library": "sentence-transformers",
-          "downloads": 4078375,
-          "likes": 242,
+          "downloads": 3798344,
+          "likes": 243,
           "baseModel": null,
           "hasSafetensors": true,
           "url": "https://huggingface.co/BAAI/bge-reranker-base/tree/2cfc18c9415c912f9d8155881c133215df768a70"
@@ -165,23 +165,9 @@
           "lastModified",
           "downloads"
         ],
-        "inspected": 390
+        "inspected": 402
       },
       "candidates": [
-        {
-          "id": "answerdotai/ModernBERT-base",
-          "revision": "8949b909ec900327062f0ebf497f51aef5e6f0c8",
-          "lastModified": "2025-01-15T20:11:48.000Z",
-          "license": "apache-2.0",
-          "gated": false,
-          "pipelineTag": "fill-mask",
-          "library": "transformers",
-          "downloads": 5618765,
-          "likes": 1085,
-          "baseModel": null,
-          "hasSafetensors": true,
-          "url": "https://huggingface.co/answerdotai/ModernBERT-base/tree/8949b909ec900327062f0ebf497f51aef5e6f0c8"
-        },
         {
           "id": "FacebookAI/xlm-roberta-base",
           "revision": "e73636d4f797dec63c3081bb6ed5c7b0bb3f2089",
@@ -190,11 +176,25 @@
           "gated": false,
           "pipelineTag": "fill-mask",
           "library": "transformers",
-          "downloads": 18110036,
-          "likes": 882,
+          "downloads": 22006202,
+          "likes": 918,
           "baseModel": null,
           "hasSafetensors": true,
           "url": "https://huggingface.co/FacebookAI/xlm-roberta-base/tree/e73636d4f797dec63c3081bb6ed5c7b0bb3f2089"
+        },
+        {
+          "id": "answerdotai/ModernBERT-base",
+          "revision": "8949b909ec900327062f0ebf497f51aef5e6f0c8",
+          "lastModified": "2025-01-15T20:11:48.000Z",
+          "license": "apache-2.0",
+          "gated": false,
+          "pipelineTag": "fill-mask",
+          "library": "transformers",
+          "downloads": 4611648,
+          "likes": 1097,
+          "baseModel": null,
+          "hasSafetensors": true,
+          "url": "https://huggingface.co/answerdotai/ModernBERT-base/tree/8949b909ec900327062f0ebf497f51aef5e6f0c8"
         },
         {
           "id": "FacebookAI/xlm-roberta-large",
@@ -204,8 +204,8 @@
           "gated": false,
           "pipelineTag": "fill-mask",
           "library": "transformers",
-          "downloads": 6271963,
-          "likes": 525,
+          "downloads": 3280003,
+          "likes": 530,
           "baseModel": null,
           "hasSafetensors": true,
           "url": "https://huggingface.co/FacebookAI/xlm-roberta-large/tree/c23d21b0620b635a76227c604d44e43a9f0ee389"
@@ -242,8 +242,8 @@
           "gated": false,
           "pipelineTag": "token-classification",
           "library": "transformers",
-          "downloads": 1665228,
-          "likes": 728,
+          "downloads": 1628608,
+          "likes": 733,
           "baseModel": null,
           "hasSafetensors": true,
           "url": "https://huggingface.co/dslim/bert-base-NER/tree/d1a3e8f13f8c3566299d95fcfc9a8d2382a9affc"
@@ -256,25 +256,25 @@
           "gated": false,
           "pipelineTag": "token-classification",
           "library": "transformers",
-          "downloads": 255334,
-          "likes": 29,
+          "downloads": 260412,
+          "likes": 31,
           "baseModel": null,
           "hasSafetensors": true,
           "url": "https://huggingface.co/OpenMed/OpenMed-NER-PharmaDetect-SuperClinical-434M/tree/d4259d05b0e924ad786f5c342ddedf46fe956331"
         },
         {
-          "id": "OpenMed/OpenMed-NER-DiseaseDetect-BioMed-335M",
-          "revision": "a62e2a2da5ff7d6b79024ba906f481581466ea61",
-          "lastModified": "2025-08-05T09:41:31.000Z",
-          "license": "apache-2.0",
+          "id": "Babelscape/wikineural-multilingual-ner",
+          "revision": "bed6ee7a45d2827b6c90a4fd7983f0241ae0a5c1",
+          "lastModified": "2023-05-23T08:47:23.000Z",
+          "license": "cc-by-nc-sa-4.0",
           "gated": false,
           "pipelineTag": "token-classification",
           "library": "transformers",
-          "downloads": 210098,
-          "likes": 9,
+          "downloads": 662702,
+          "likes": 168,
           "baseModel": null,
           "hasSafetensors": true,
-          "url": "https://huggingface.co/OpenMed/OpenMed-NER-DiseaseDetect-BioMed-335M/tree/a62e2a2da5ff7d6b79024ba906f481581466ea61"
+          "url": "https://huggingface.co/Babelscape/wikineural-multilingual-ner/tree/bed6ee7a45d2827b6c90a4fd7983f0241ae0a5c1"
         }
       ]
     },
@@ -297,7 +297,7 @@
           "lastModified",
           "downloads"
         ],
-        "inspected": 141
+        "inspected": 155
       },
       "candidates": [
         {
@@ -308,25 +308,25 @@
           "gated": false,
           "pipelineTag": "summarization",
           "library": "transformers",
-          "downloads": 43380,
-          "likes": 303,
+          "downloads": 52362,
+          "likes": 310,
           "baseModel": null,
           "hasSafetensors": true,
           "url": "https://huggingface.co/Falconsai/text_summarization/tree/6e505f907968c4a9360773ff57885cdc6dca4bfd"
         },
         {
-          "id": "hosseinmhmdkhani/mt5-small-finetuned-persian-news-summarization",
-          "revision": "262722766812e2dcc2df9052ed1a8091f3e09c71",
-          "lastModified": "2026-07-26T20:57:11.000Z",
-          "license": "apache-2.0",
+          "id": "z-dickson/bart-large-cnn-climate-change-summarization",
+          "revision": "b40d7636fe20ba686783f66a54900d2dbd6b2c07",
+          "lastModified": "2025-11-26T08:44:28.000Z",
+          "license": "afl-3.0",
           "gated": false,
           "pipelineTag": "summarization",
           "library": "transformers",
-          "downloads": 217,
-          "likes": 0,
-          "baseModel": "google/mt5-small",
+          "downloads": 316,
+          "likes": 5,
+          "baseModel": null,
           "hasSafetensors": true,
-          "url": "https://huggingface.co/hosseinmhmdkhani/mt5-small-finetuned-persian-news-summarization/tree/262722766812e2dcc2df9052ed1a8091f3e09c71"
+          "url": "https://huggingface.co/z-dickson/bart-large-cnn-climate-change-summarization/tree/b40d7636fe20ba686783f66a54900d2dbd6b2c07"
         },
         {
           "id": "Falconsai/medical_summarization",
@@ -336,8 +336,8 @@
           "gated": false,
           "pipelineTag": "summarization",
           "library": "transformers",
-          "downloads": 2568,
-          "likes": 154,
+          "downloads": 1213,
+          "likes": 157,
           "baseModel": null,
           "hasSafetensors": true,
           "url": "https://huggingface.co/Falconsai/medical_summarization/tree/28df52e1c1a37ae90145951ca5d684aa58ec830b"
@@ -364,7 +364,7 @@
           "lastModified",
           "downloads"
         ],
-        "inspected": 160
+        "inspected": 161
       },
       "candidates": [
         {
@@ -375,8 +375,8 @@
           "gated": false,
           "pipelineTag": "text-generation",
           "library": "transformers",
-          "downloads": 624667,
-          "likes": 484,
+          "downloads": 491467,
+          "likes": 491,
           "baseModel": "swiss-ai/Apertus-8B-2509",
           "hasSafetensors": true,
           "url": "https://huggingface.co/swiss-ai/Apertus-8B-Instruct-2509/tree/b946d40447b2b597999b9c86d44bee0b452c919f"
@@ -389,25 +389,25 @@
           "gated": false,
           "pipelineTag": "text-generation",
           "library": "transformers",
-          "downloads": 3324645,
-          "likes": 918,
+          "downloads": 3591350,
+          "likes": 959,
           "baseModel": null,
           "hasSafetensors": true,
           "url": "https://huggingface.co/Qwen/Qwen3-4B-Instruct-2507/tree/cdbee75f17c01a7cc42f958dc650907174af0554"
         },
         {
-          "id": "meta-llama/Meta-Llama-3-8B-Instruct",
-          "revision": "8afb486c1db24fe5011ec46dfbe5b5dccdb575c2",
-          "lastModified": "2025-06-18T23:49:51.000Z",
-          "license": "llama3",
-          "gated": true,
+          "id": "mistralai/Mistral-7B-Instruct-v0.2",
+          "revision": "63a8b081895390a26e140280378bc85ec8bce07a",
+          "lastModified": "2025-07-24T16:57:21.000Z",
+          "license": "apache-2.0",
+          "gated": false,
           "pipelineTag": "text-generation",
           "library": "transformers",
-          "downloads": 2020884,
-          "likes": 4823,
+          "downloads": 1603713,
+          "likes": 3226,
           "baseModel": null,
           "hasSafetensors": true,
-          "url": "https://huggingface.co/meta-llama/Meta-Llama-3-8B-Instruct/tree/8afb486c1db24fe5011ec46dfbe5b5dccdb575c2"
+          "url": "https://huggingface.co/mistralai/Mistral-7B-Instruct-v0.2/tree/63a8b081895390a26e140280378bc85ec8bce07a"
         }
       ]
     },
@@ -430,50 +430,50 @@
           "lastModified",
           "downloads"
         ],
-        "inspected": 190
+        "inspected": 189
       },
       "candidates": [
         {
-          "id": "unsloth/GLM-OCR",
-          "revision": "fae39dc9c35655593e5f9f77e2b01276ad343b38",
-          "lastModified": "2026-02-03T14:29:16.000Z",
+          "id": "zai-org/GLM-OCR",
+          "revision": "2e85a62840ccac27daa451df36c736c4636b8628",
+          "lastModified": "2026-09-11T11:59:14.000Z",
           "license": "mit",
           "gated": false,
           "pipelineTag": "image-to-text",
           "library": "transformers",
-          "downloads": 32996,
-          "likes": 36,
-          "baseModel": "zai-org/GLM-OCR",
+          "downloads": 1904001,
+          "likes": 2037,
+          "baseModel": null,
           "hasSafetensors": true,
-          "url": "https://huggingface.co/unsloth/GLM-OCR/tree/fae39dc9c35655593e5f9f77e2b01276ad343b38"
+          "url": "https://huggingface.co/zai-org/GLM-OCR/tree/2e85a62840ccac27daa451df36c736c4636b8628"
         },
         {
           "id": "tiiuae/Falcon-OCR",
-          "revision": "42ec56b72a23984ac059e7c8a6d397a8529423fe",
-          "lastModified": "2026-07-03T06:59:13.000Z",
+          "revision": "fe757d59ecd79d4d68760162306a70a015761ad9",
+          "lastModified": "2026-09-11T22:04:44.000Z",
           "license": "apache-2.0",
           "gated": false,
           "pipelineTag": "image-to-text",
           "library": "transformers",
-          "downloads": 3357,
-          "likes": 137,
+          "downloads": 4575,
+          "likes": 152,
           "baseModel": null,
           "hasSafetensors": true,
-          "url": "https://huggingface.co/tiiuae/Falcon-OCR/tree/42ec56b72a23984ac059e7c8a6d397a8529423fe"
+          "url": "https://huggingface.co/tiiuae/Falcon-OCR/tree/fe757d59ecd79d4d68760162306a70a015761ad9"
         },
         {
-          "id": "PaddlePaddle/PP-OCRv6_medium_det_safetensors",
-          "revision": "4236c2b61741a259c091fd879dcc4edc339e916c",
-          "lastModified": "2026-06-12T03:10:52.000Z",
+          "id": "PaddlePaddle/PP-OCRv6_medium_rec_onnx",
+          "revision": "50c7eacafc52fa7bcf4194e8cd08e46f8558504b",
+          "lastModified": "2026-06-18T11:07:56.000Z",
           "license": "apache-2.0",
           "gated": false,
           "pipelineTag": "image-to-text",
           "library": "PaddleOCR",
-          "downloads": 1888,
-          "likes": 124,
+          "downloads": 150027,
+          "likes": 25,
           "baseModel": null,
-          "hasSafetensors": true,
-          "url": "https://huggingface.co/PaddlePaddle/PP-OCRv6_medium_det_safetensors/tree/4236c2b61741a259c091fd879dcc4edc339e916c"
+          "hasSafetensors": false,
+          "url": "https://huggingface.co/PaddlePaddle/PP-OCRv6_medium_rec_onnx/tree/50c7eacafc52fa7bcf4194e8cd08e46f8558504b"
         }
       ]
     }
